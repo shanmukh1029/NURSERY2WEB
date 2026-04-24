@@ -70,7 +70,10 @@ function App() {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(() => setLoading(false), 500);
+          setTimeout(() => {
+            setLoading(false);
+            window.scrollTo(0, 0); // Force scroll to top for fresh preloader reveal
+          }, 500);
           return 100;
         }
         return prev + 1;
