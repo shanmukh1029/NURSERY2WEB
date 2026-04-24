@@ -62,6 +62,14 @@ function App() {
 
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Admin state
   const [isLoggedIn, setIsLoggedIn] = useState(() => JSON.parse(localStorage.getItem('admin_logged_in') || 'false'));
@@ -131,6 +139,14 @@ function App() {
 
   return (
     <>
+      {/* Loading Screen */}
+      <div className={`preloader ${!loading ? 'fade-out' : ''}`}>
+        <div className="loader-leaf">🌿</div>
+        <div className="loader-progress-wrap">
+          <div className="loader-progress-bar"></div>
+        </div>
+        <div className="loader-text">Nurturing your experience...</div>
+      </div>
       
 
 {/* ===== HERO SECTION ===== */}
