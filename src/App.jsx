@@ -149,6 +149,10 @@ function App() {
     try { return JSON.parse(localStorage.getItem('client_works') || '[]'); } catch { return []; }
   });
 
+  const [testimonialEnabled, setTestimonialEnabled] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('testimonial_enabled') || 'false'); } catch { return false; }
+  });
+  const [showTestimonialForm, setShowTestimonialForm] = useState(false);
   const [activeGalleryCat, setActiveGalleryCat] = useState(null);
   const [activeCollFilter, setActiveCollFilter] = useState('filter-outdoor');
   const [isMobile, setIsMobile] = useState(false);
@@ -171,7 +175,7 @@ function App() {
           clearInterval(interval);
           setTimeout(() => {
             setLoading(false);
-            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+            window.scrollTo(0, 0); 
           }, 300);
           return 100;
         }
@@ -183,10 +187,16 @@ function App() {
 
   const handleLogin = () => { setIsLoggedIn(true); localStorage.setItem('admin_logged_in', 'true'); };
   const handleLogout = () => { setIsLoggedIn(false); localStorage.setItem('admin_logged_in', 'false'); };
+  const handleTestimonialSubmit = (t) => { 
+    if (!t) return;
+    const updated = [...(customTestimonials || []), t]; 
+    setCustomTestimonials(updated); 
+    localStorage.setItem('custom_testimonials', JSON.stringify(updated)); 
+  };
   const scrollToSection = (id) => { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth' }); };
 
   const searchResultsData = [
-    ...sectionsData.map(s => ({ ...s, type: 'section' })),
+    ...(sectionsData || []).map(s => ({ ...s, type: 'section' })),
     ...(allCategoriesData || []).map(c => ({ id: 'collection', label: (c?.name || 'Category'), subLabel: 'Category', type: 'category', keywords: (c?.keywords || '') })),
     ...(customPlants || []).map(p => ({ id: 'collection', label: (p?.name || 'Plant'), subLabel: `Custom Plant - ${p?.collection || 'None'}`, type: 'plant', keywords: `${p?.desc} ${p?.family} ${p?.specs}` })),
     ...(clientWorks || []).map(w => ({ id: 'works', label: (w?.title || 'Project'), subLabel: `Project - ${w?.tag || 'Work Done'}`, type: 'work', keywords: `${w?.desc} ${w?.tag}` }))
@@ -195,6 +205,18 @@ function App() {
   const filteredResults = searchResultsData.filter(item =>
     (item?.label || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
     (item?.keywords || '').toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Derive collection view data
+  const isCatActive = !!activeGalleryCat;
+  const activeCatData = isCatActive ? (allCategoriesData || []).find(c => c.id === activeGalleryCat) : null;
+  const currentGallery = isCatActive ? (categoryGalleriesData[activeGalleryCat] || []) : [];
+  
+  const showAllCats = activeCollFilter === 'show-all';
+  const initialCategories = (allCategoriesData || []).slice(0, 3);
+  const displayCategories = showAllCats ? (allCategoriesData || []) : initialCategories;
+  const relevantCustomPlants = (customPlants || []).filter(p => 
+    showAllCats || p.collection === (allCategoriesData || []).find(c => c.id === activeCollFilter.replace('filter-', ''))?.name
   );
 
   return (
@@ -342,159 +364,144 @@ function App() {
       <motion.h2 className="section-title" variants={textItem}>Our Plant Collection</motion.h2>
     </motion.div>
 
-    {(() => {
-      const initialCategories = (allCategoriesData || []).slice(0, 3);
-      const showAll = activeCollFilter === 'show-all';
-      
-      const displayCategories = showAll ? (allCategoriesData || []) : initialCategories;
+    <div className="filter-row">
+      <button 
+        className={`filter-btn ${activeCollFilter === 'filter-outdoor' ? 'active' : ''}`} 
+        onClick={() => setActiveCollFilter('filter-outdoor')}
+      >
+        Outdoor
+      </button>
+      <button 
+        className={`filter-btn ${activeCollFilter === 'filter-indoor' ? 'active' : ''}`} 
+        onClick={() => setActiveCollFilter('filter-indoor')}
+      >
+        Indoor
+      </button>
+      <button className={`see-all-btn ${showAllCats ? 'active' : ''}`} onClick={() => setActiveCollFilter(showAllCats ? 'filter-outdoor' : 'show-all')}>
+        {showAllCats ? 'Show Less' : 'See All'}
+      </button>
+    </div>
 
-      const relevantCustomPlants = (customPlants || []).filter(p => 
-        showAll || p.collection === (allCategoriesData || []).find(c => c.id === activeCollFilter.replace('filter-', ''))?.name
-      );
-
-      return (
-        <>
-          <div className="filter-row">
-            <button 
-              className={`filter-btn ${activeCollFilter === 'filter-outdoor' ? 'active' : ''}`} 
-              onClick={() => setActiveCollFilter('filter-outdoor')}
-            >
-              Outdoor
-            </button>
-            <button 
-              className={`filter-btn ${activeCollFilter === 'filter-indoor' ? 'active' : ''}`} 
-              onClick={() => setActiveCollFilter('filter-indoor')}
-            >
-              Indoor
-            </button>
-            <button className={`see-all-btn ${showAll ? 'active' : ''}`} onClick={() => setActiveCollFilter(showAll ? 'filter-outdoor' : 'show-all')}>
-              {showAll ? 'Show Less' : 'See All'}
-            </button>
+    {isCatActive ? (
+      <motion.div 
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        className="collection-detail-view"
+      >
+        <div className="collection-view-header">
+          <button className="back-btn-lux" onClick={() => setActiveGalleryCat(null)}>
+            <span className="material-symbols-outlined">arrow_back</span>
+            Back to Categories
+          </button>
+          <div className="view-title-wrap">
+            <h3 className="view-title-lux">{activeCatData?.name || 'Gallery'}</h3>
+            <p className="view-subtitle-lux">Curated specimens from Sri Satya Ramayya Nursery</p>
           </div>
-
-          {activeGalleryCat ? (
-            <motion.div 
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="collection-detail-view"
+        </div>
+        
+        <div className="collection-grid-all">
+          {currentGallery.map((plant, idx) => (
+            <motion.div
+              key={plant.id}
+              className="coll-card coll-card-uniform"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
             >
-              <div className="collection-view-header">
-                <button className="back-btn-lux" onClick={() => setActiveGalleryCat(null)}>
-                  <span className="material-symbols-outlined">arrow_back</span>
-                  Back to Categories
-                </button>
-                <div className="view-title-wrap">
-                  <h3 className="view-title-lux">{(allCategoriesData || []).find(c => c.id === activeGalleryCat)?.name || 'Gallery'}</h3>
-                  <p className="view-subtitle-lux">Curated specimens from Sri Satya Ramayya Nursery</p>
-                </div>
+              <img src={plant.img} alt={plant.name} loading="lazy" />
+              <div className="coll-card-overlay"></div>
+              <div className="coll-card-content">
+                <h3 className="coll-card-title">{plant.name}</h3>
+                <p className="coll-card-desc">{plant.desc}</p>
+                <span className="coll-arrow">→</span>
               </div>
-              
-              <div className="collection-grid-all">
-                {(categoryGalleriesData[activeGalleryCat] || []).map((plant, idx) => (
-                  <motion.div
-                    key={plant.id}
-                    className="coll-card coll-card-uniform"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                  >
-                    <img src={plant.img} alt={plant.name} loading="lazy" />
-                    <div className="coll-card-overlay"></div>
-                    <div className="coll-card-content">
-                      <h3 className="coll-card-title">{plant.name}</h3>
-                      <p className="coll-card-desc">{plant.desc}</p>
-                      <span className="coll-arrow">→</span>
-                    </div>
-                    <div className="coll-tag">
-                      <span className="coll-tag-star">★</span>
-                      {plant.family}
-                    </div>
-                  </motion.div>
-                ))}
-                {/* Custom Admin Plants for this category */}
-                {(customPlants || []).filter(p => p.collection === (allCategoriesData || []).find(c => c.id === activeGalleryCat)?.name).map((plant, i) => (
-                  <motion.div
-                    key={plant.id}
-                    className="coll-card coll-card-uniform"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                  >
-                    {plant.img ? (
-                      <img src={plant.img} alt={plant.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
-                    ) : (
-                      <div style={{ width: '100%', height: '100%', background: '#1e2e1a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '40px' }}>
-                        🌿
-                      </div>
-                    )}
-                    <div className="coll-card-overlay"></div>
-                    <div className="coll-card-content">
-                      <h3 className="coll-card-title">{plant.name}</h3>
-                      <p className="coll-card-desc">{plant.desc || plant.specs || 'Nurtured at Sri Satya Ramayya Nursery.'}</p>
-                      <div className="admin-plant-price-badge">₹{plant.price || 'Contact'}</div>
-                    </div>
-                  </motion.div>
-                ))}
+              <div className="coll-tag">
+                <span className="coll-tag-star">★</span>
+                {plant.family}
               </div>
             </motion.div>
-          ) : (
-            <div className={showAll ? 'collection-grid-all' : 'collection-grid'}>
-              {(displayCategories || []).map((cat, i) => (
-                <motion.div
-                  key={cat.id}
-                  className={`coll-card ${showAll ? 'coll-card-uniform' : (cat.size === 'large' ? 'coll-card-large' : 'coll-card-small')}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: showAll ? i * 0.05 : i * 0.1 }}
-                  onClick={() => setActiveGalleryCat(cat.id)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <img src={cat.img} alt={`${cat.name} - Sri Satya Ramayya Nursery Category`} loading="lazy" />
-                  <div className="coll-card-overlay"></div>
-                  <div className="coll-card-content">
-                    <h3 className="coll-card-title">{cat.name}</h3>
-                    <p className="coll-card-desc">{cat.desc}</p>
-                    <span className="coll-arrow">→</span>
-                  </div>
-                  <div className="coll-tag">
-                    <span className="coll-tag-star">★</span>
-                    {cat.family}
-                  </div>
-                </motion.div>
-              ))}
-
-              {/* Custom Admin Plants */}
-              {(relevantCustomPlants || []).map((plant, i) => (
-                <motion.div
-                  key={plant.id}
-                  className={`coll-card ${showAll ? 'coll-card-uniform' : 'coll-card-small'}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: ((displayCategories || []).length + i) * 0.1 }}
-                >
-                  {plant.img ? (
-                    <img src={plant.img} alt={`${plant.name} - Premium Plant`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
-                  ) : (
-                    <div style={{ width: '100%', height: '100%', background: '#1e2e1a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '40px' }}>
-                      🌿
-                    </div>
-                  )}
-                  <div className="coll-card-overlay"></div>
-                  <div className="coll-card-content">
-                    <h3 className="coll-card-title">{plant.name}</h3>
-                    <p className="coll-card-desc">{plant.desc || plant.specs || 'Nurtured with care at Sri Satya Ramayya Nursery.'}</p>
-                    <div className="admin-plant-price-badge">₹{plant.price || 'Contact'}</div>
-                  </div>
-                  <div className="coll-tag">
-                    <span className="coll-tag-star">★</span>
-                    {plant.family || 'Specimen'}
-                  </div>
-                </motion.div>
-              ))}
+          ))}
+          {/* Custom Admin Plants for this category */}
+          {(customPlants || []).filter(p => p.collection === activeCatData?.name).map((plant, i) => (
+            <motion.div
+              key={plant.id}
+              className="coll-card coll-card-uniform"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              {plant.img ? (
+                <img src={plant.img} alt={plant.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+              ) : (
+                <div style={{ width: '100%', height: '100%', background: '#1e2e1a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '40px' }}>
+                  🌿
+                </div>
+              )}
+              <div className="coll-card-overlay"></div>
+              <div className="coll-card-content">
+                <h3 className="coll-card-title">{plant.name}</h3>
+                <p className="coll-card-desc">{plant.desc || plant.specs || 'Nurtured at Sri Satya Ramayya Nursery.'}</p>
+                <div className="admin-plant-price-badge">₹{plant.price || 'Contact'}</div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    ) : (
+      <div className={showAllCats ? 'collection-grid-all' : 'collection-grid'}>
+        {(displayCategories || []).map((cat, i) => (
+          <motion.div
+            key={cat.id}
+            className={`coll-card ${showAllCats ? 'coll-card-uniform' : (cat.size === 'large' ? 'coll-card-large' : 'coll-card-small')}`}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: showAllCats ? i * 0.05 : i * 0.1 }}
+            onClick={() => setActiveGalleryCat(cat.id)}
+            style={{ cursor: 'pointer' }}
+          >
+            <img src={cat.img} alt={`${cat.name} - Sri Satya Ramayya Nursery Category`} loading="lazy" />
+            <div className="coll-card-overlay"></div>
+            <div className="coll-card-content">
+              <h3 className="coll-card-title">{cat.name}</h3>
+              <p className="coll-card-desc">{cat.desc}</p>
+              <span className="coll-arrow">→</span>
             </div>
-          )}
-        </>
-      );
-    })()}
+            <div className="coll-tag">
+              <span className="coll-tag-star">★</span>
+              {cat.family}
+            </div>
+          </motion.div>
+        ))}
+
+        {/* Custom Admin Plants */}
+        {(relevantCustomPlants || []).map((plant, i) => (
+          <motion.div
+            key={plant.id}
+            className={`coll-card ${showAllCats ? 'coll-card-uniform' : 'coll-card-small'}`}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: ((displayCategories || []).length + i) * 0.1 }}
+          >
+            {plant.img ? (
+              <img src={plant.img} alt={`${plant.name} - Premium Plant`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+            ) : (
+              <div style={{ width: '100%', height: '100%', background: '#1e2e1a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '40px' }}>
+                🌿
+              </div>
+            )}
+            <div className="coll-card-overlay"></div>
+            <div className="coll-card-content">
+              <h3 className="coll-card-title">{plant.name}</h3>
+              <p className="coll-card-desc">{plant.desc || plant.specs || 'Nurtured with care at Sri Satya Ramayya Nursery.'}</p>
+              <div className="admin-plant-price-badge">₹{plant.price || 'Contact'}</div>
+            </div>
+            <div className="coll-tag">
+              <span className="coll-tag-star">★</span>
+              {plant.family || 'Specimen'}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    )}
 
     <div className="divider"></div>
 
