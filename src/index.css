@@ -29,6 +29,18 @@
     a { text-decoration: none; color: inherit; }
     button { cursor: pointer; font-family: inherit; border: none; }
 
+    /* Luxury Entrance Transitions */
+    .page-wrap {
+      transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1), filter 1.8s ease;
+      transform: scale(1);
+      filter: blur(0px);
+    }
+
+    .preloader:not(.fade-out) ~ .page-wrap {
+      transform: scale(0.96);
+      filter: blur(15px);
+    }
+
     /* ===== NAVBAR ===== */
     .navbar {
       position: absolute;
@@ -1870,9 +1882,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 10000;
+      z-index: 100000; /* Increased to ensure total coverage */
       overflow: hidden;
-      transition: all 1s cubic-bezier(0.85, 0, 0.15, 1);
+      transition: opacity 1.2s cubic-bezier(0.85, 0, 0.15, 1), transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
     }
 
     .preloader.fade-out {

@@ -75,7 +75,7 @@ function App() {
         }
         return prev + 1;
       });
-    }, 20); // Faster, smooth increment
+    }, 35); // Cinematic Senior Designer pacing (approx 3.5s total)
     return () => clearInterval(interval);
   }, []);
 
@@ -295,7 +295,6 @@ function App() {
       </div>
     </div>
   </section>
-</div>
 
 {/* ===== PLANT COLLECTION ===== */}
 <div className="section-wrapper">
