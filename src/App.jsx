@@ -18,6 +18,79 @@ const textItem = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
+const sectionsData = [
+  { id: 'collection', label: 'Plant Collection', keywords: 'plants outdoor indoor desk potted pet friendly orchids succulents' },
+  { id: 'works', label: 'Recent Exports & Works', keywords: 'exports portfolio work done projects clients' },
+  { id: 'testimonials', label: 'Testimonials', keywords: 'testimonial review customer community' },
+  { id: 'subscribe', label: 'Subscribe', keywords: 'subscribe email newsletter' },
+  { id: 'contact', label: 'Contact Us', keywords: 'contact form message phone email address' },
+];
+
+const allCategoriesData = [
+  { id: 'fruit', name: 'Fruit Plants', img: 'fruit_plants.png', desc: 'Grow your own orchard with our premium fruit saplings — mango, guava, citrus & more.', family: 'Rosaceae', size: 'large', keywords: 'mango guava citrus orchard sapling' },
+  { id: 'avenues', name: 'Avenues', img: 'avenue_trees.png', desc: 'Grand, shade-giving trees perfect for lining walkways and garden paths.', family: 'Fabaceae', size: 'small', keywords: 'shade trees walkways garden paths tall neem' },
+  { id: 'flowers', name: 'Flowers', img: 'orchids.png', desc: 'Brighten your garden with vibrant roses, jasmine, marigolds and more.', family: 'Asteraceae', size: 'small', keywords: 'roses jasmine marigold blooming colorful' },
+  { id: 'exotic', name: 'Exotic Fruit Plants', img: 'pet_friendly_plants.png', desc: 'Rare tropical fruiting varieties — dragon fruit, passion fruit, avocado & more.', family: 'Cactaceae', size: 'large', keywords: 'dragon fruit passion avocado tropical rare' },
+  { id: 'palms', name: 'Palm Varieties', img: 'hero_fern.png', desc: 'Elegant palm trees to give your garden a tropical, resort-like feel.', family: 'Arecaceae', size: 'small', keywords: 'resort tropical palm trees tall' },
+  { id: 'spices', name: 'Spices', img: 'bonsai_plant.png', desc: 'Grow cinnamon, cardamom, pepper and more aromatic spice plants at home.', family: 'Zingiberaceae', size: 'small', keywords: 'cinnamon cardamom pepper aromatic' },
+  { id: 'indoor', name: 'Indoor Plants', img: 'pothos_plant.png', desc: 'Air-purifying, low-maintenance plants that thrive indoors.', family: 'Araceae', size: 'large', keywords: 'air purifying low maintenance desk houseplant' },
+  { id: 'shrubs', name: 'Shrubs & Bush', img: 'succulents.png', desc: 'Compact ornamental shrubs ideal for borders and hedges.', family: 'Myrtaceae', size: 'small', keywords: 'compact ornamental borders hedges landscape' },
+  { id: 'bonsai', name: 'Bonsai', img: 'bonsai_plant.png', desc: 'Miniature masterpieces — sculpted living art for your space.', family: 'Various', size: 'small', keywords: 'miniature sculpted art ancient' },
+  { id: 'climbers', name: 'Climbers & Creepers', img: 'spider_plant.png', desc: 'Beautiful vines and climbers that add vertical greenery to any wall.', family: 'Convolvulaceae', size: 'large', keywords: 'vines vertical green wall creeper' },
+  { id: 'cactus', name: 'Cactus & Succulents', img: 'succulents.png', desc: 'Hardy, low-water beauties perfect for sunny spots and windowsills.', family: 'Cactaceae', size: 'small', keywords: 'hardy low water sunny desert' },
+  { id: 'lawn', name: 'Lawn Grass', img: 'avenue_trees.png', desc: 'Premium lawn grass varieties for lush, green, carpet-like gardens.', family: 'Poaceae', size: 'small', keywords: 'carpet green grass garden ground' },
+  { id: 'bamboo', name: 'Bamboo', img: 'hero_fern.png', desc: 'Fast-growing, eco-friendly bamboo for fencing, privacy and beauty.', family: 'Poaceae', size: 'large', keywords: 'fast privacy fencing wood eco' },
+  { id: 'medicinal', name: 'Medicinal & Herbal Plants', img: 'pet_friendly_plants.png', desc: 'Tulsi, aloe vera, ashwagandha — nature\'s pharmacy in your garden.', family: 'Lamiaceae', size: 'small', keywords: 'tulsi aloe ashwagandha pharmacy ayurvedic' },
+];
+
+const categoryGalleriesData = {
+  fruit: [
+    { id: 'f1', name: 'Banganapalli Mango', img: 'fruit_mango_premium_1777051984930.png', family: 'Anacardiaceae', desc: 'The King of Mangoes, known for its sweet, fiberless pulp and rich aroma.' },
+    { id: 'f2', name: 'Allahabad Guava', img: 'fruit_guava_premium_1777052010346.png', family: 'Myrtaceae', desc: 'Premium white guava, sweet and crunchy with a smooth texture.' },
+    { id: 'f3', name: 'Kagzi Lemon', img: 'fruit_lemon_premium_1777052033476.png', family: 'Rutaceae', desc: 'Juicy, thin-skinned lemons perfect for home use and beverages.' },
+    { id: 'f4', name: 'Ruby Pomegranate', img: 'fruit_pomegranate_premium_1777052062754.png', family: 'Lythraceae', desc: 'Deep red, jewel-like seeds packed with antioxidants and sweet juice.' },
+    { id: 'f5', name: 'Cricket Ball Sapota', img: 'fruit_sapota_premium_1777052087272.png', family: 'Sapotaceae', desc: 'Large, round, grainy-sweet fruit that melts in your mouth.' }
+  ],
+  avenues: [
+    { id: 'a1', name: 'Royal Gulmohar', img: 'avenue_gulmohar_premium_1777053249656.png', family: 'Fabaceae', desc: 'Stunning red-orange blossoms that transform any avenue into a floral paradise.' },
+    { id: 'a2', name: 'Neem Tree', img: 'avenue_trees.png', family: 'Meliaceae', desc: 'The eternal air purifier, providing vast shade and medicinal benefits.' },
+    { id: 'a3', name: 'Spathodea', img: 'avenue_trees.png', family: 'Bignoniaceae', desc: 'The African Tulip tree, featuring majestic orange-red bell-shaped flowers.' }
+  ],
+  flowers: [
+    { id: 'fl1', name: 'Vibrant Hibiscus', img: 'flower_hibiscus_premium_1777053279512.png', family: 'Malvaceae', desc: 'Bold, tropical blooms that add an instant splash of high-end color to your garden.' },
+    { id: 'fl2', name: 'Grand Rose', img: 'orchids.png', family: 'Rosaceae', desc: 'The queen of flowers, known for its exquisite fragrance and timeless beauty.' }
+  ],
+  exotic: [
+    { id: 'e1', name: 'Pink Dragon Fruit', img: 'exotic_dragon_fruit_premium_1777053313490.png', family: 'Cactaceae', desc: 'A futuristic-looking tropical delight, rich in fiber and antioxidants.' },
+    { id: 'e2', name: 'Rambutan', img: 'pet_friendly_plants.png', family: 'Sapindaceae', desc: 'Sweet, hairy exotic fruit with a succulent white flesh inside.' }
+  ],
+  palms: [
+    { id: 'p1', name: 'Bismarckia Palm', img: 'palm_bismarckia_premium_1777053345597.png', family: 'Arecaceae', desc: 'Architectural silver-blue fan fronds that define luxury landscaping.' },
+    { id: 'p2', name: 'Foxtail Palm', img: 'hero_fern.png', family: 'Arecaceae', desc: 'Elegant, fluffy fronds resembling a fox tail, perfect for poolside aesthetics.' }
+  ],
+  spices: [
+    { id: 's1', name: 'Black Pepper', img: 'spice_black_pepper_premium_1777053390918.png', family: 'Piperaceae', desc: 'The "King of Spices" climbing vine, adding culinary heritage to your backyard.' },
+    { id: 's2', name: 'Cinnamon', img: 'bonsai_plant.png', family: 'Lauraceae', desc: 'Aromatic evergreen tree whose bark provides the world\'s most beloved spice.' }
+  ],
+  indoor: [
+    { id: 'i1', name: 'Snake Plant', img: 'indoor_snake_plant_premium_1777053426619.png', family: 'Asparagaceae', desc: 'The ultimate air-purifying architectural plant, thriving on minimal care.' },
+    { id: 'i2', name: 'Peace Lily', img: 'pothos_plant.png', family: 'Araceae', desc: 'Elegant white spathes and deep green leaves that filter indoor toxins.' }
+  ],
+  bonsai: [
+    { id: 'b1', name: 'Desert Rose Bonsai', img: 'bonsai_adenium_premium_1777053466375.png', family: 'Apocynaceae', desc: 'Sculpted living art featuring a thick caudex and brilliant pink blooms.' },
+    { id: 'b2', name: 'Ficus Microcarpa', img: 'bonsai_plant.png', family: 'Moraceae', desc: 'Classic bonsai with ancient-looking aerial roots and dense foliage.' }
+  ],
+  bamboo: [
+    { id: 'ba1', name: 'Golden Bamboo', img: 'bamboo_golden_premium_1777053506018.png', family: 'Poaceae', desc: 'Fast-growing golden stalks that create a serene, luxury privacy screen.' }
+  ],
+  medicinal: [
+    { id: 'm1', name: 'Holy Tulsi', img: 'medical_tulsi_premium_1777053550042.png', family: 'Lamiaceae', desc: 'The "Queen of Herbs," revered for its immunity-boosting and spiritual properties.' }
+  ],
+  lawn: [
+    { id: 'l1', name: 'Mexican Grass', img: 'lawn_mexican_grass_premium_1777053593448.png', family: 'Poaceae', desc: 'Luxury manicured carpet grass, soft to the touch and vibrant emerald green.' }
+  ]
+};
+
 function App() {
   const { scrollY } = useScroll();
   const heroBgY = useTransform(scrollY, [0, 1000], ['0%', '40%']);
@@ -32,19 +105,18 @@ function App() {
     targetDate.setMinutes(targetDate.getMinutes() + 9);
     targetDate.setSeconds(targetDate.getSeconds() + 36);
 
-    const interval = setInterval(() => {
+    const timerInterval = setInterval(() => {
       const now = new Date();
       const diff = targetDate - now;
       if (diff <= 0) return;
-      
       setTimeLeft({
         days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((diff % (1000 * 60)) / 1000)
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / 1000 / 60) % 60),
+        seconds: Math.floor((diff / 1000) % 60)
       });
     }, 1000);
-    return () => clearInterval(interval);
+    return () => clearInterval(timerInterval);
   }, []);
 
   const [activeProducts, setActiveProducts] = useState(new Set());
@@ -57,19 +129,40 @@ function App() {
     });
   };
 
-  const [activeFilter, setActiveFilter] = useState('filter-featured');
-  const [activeCollFilter, setActiveCollFilter] = useState('filter-outdoor');
-
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('admin_logged_in') || 'false'); } catch { return false; }
+  });
+  const [showLogin, setShowLogin] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(false);
+  const [customPlants, setCustomPlants] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('admin_plants') || '[]'); } catch { return []; }
+  });
+  const [customTestimonials, setCustomTestimonials] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('custom_testimonials') || '[]'); } catch { return []; }
+  });
+  const [clientWorks, setClientWorks] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('client_works') || '[]'); } catch { return []; }
+  });
+
+  const [activeGalleryCat, setActiveGalleryCat] = useState(null);
+  const [activeCollFilter, setActiveCollFilter] = useState('filter-outdoor');
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     const isLocked = loading || searchOpen || showLogin || showAdmin;
     document.body.style.overflow = isLocked ? 'hidden' : 'auto';
-    return () => { document.body.style.overflow = 'auto'; };
   }, [loading, searchOpen, showLogin, showAdmin]);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile(); window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -78,154 +171,43 @@ function App() {
           clearInterval(interval);
           setTimeout(() => {
             setLoading(false);
-            window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); // Use instant to avoid race conditions with smooth-scroll
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
           }, 300);
           return 100;
         }
-        return prev + 2; // Slightly faster for smoother mobile experience
+        return prev + 2;
       });
     }, 40);
     return () => clearInterval(interval);
   }, []);
 
-  // Admin state
-  const [isLoggedIn, setIsLoggedIn] = useState(() => JSON.parse(localStorage.getItem('admin_logged_in') || 'false'));
-  const [showLogin, setShowLogin] = useState(false);
-  const [showAdmin, setShowAdmin] = useState(false);
-  const [customPlants, setCustomPlants] = useState(() => JSON.parse(localStorage.getItem('admin_plants') || '[]'));
-  const [testimonialEnabled, setTestimonialEnabled] = useState(() => JSON.parse(localStorage.getItem('testimonial_enabled') || 'false'));
-  const [customTestimonials, setCustomTestimonials] = useState(() => JSON.parse(localStorage.getItem('custom_testimonials') || '[]'));
-  const [clientWorks, setClientWorks] = useState(() => JSON.parse(localStorage.getItem('client_works') || '[]'));
-  const [showTestimonialForm, setShowTestimonialForm] = useState(false);
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    localStorage.setItem('admin_logged_in', 'true');
-  };
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    localStorage.setItem('admin_logged_in', 'false');
-  };
-  const handleTestimonialSubmit = (testimonial) => {
-    const updated = [...customTestimonials, testimonial];
-    setCustomTestimonials(updated);
-    localStorage.setItem('custom_testimonials', JSON.stringify(updated));
-  };
-
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const sections = [
-    { id: 'collection', label: 'Plant Collection', keywords: 'plants outdoor indoor desk potted pet friendly orchids succulents' },
-    { id: 'works', label: 'Recent Exports & Works', keywords: 'exports portfolio work done projects clients' },
-    { id: 'testimonials', label: 'Testimonials', keywords: 'testimonial review customer community' },
-    { id: 'subscribe', label: 'Subscribe', keywords: 'subscribe email newsletter' },
-    { id: 'contact', label: 'Contact Us', keywords: 'contact form message phone email address' },
-  ];
-
-  const plantCategories = [
-    { id: 'fruit', name: 'Fruit Plants', keywords: 'mango guava citrus orchard sapling' },
-    { id: 'avenues', name: 'Avenues', keywords: 'shade trees walkways garden paths tall neem' },
-    { id: 'flowers', name: 'Flowers', keywords: 'roses jasmine marigold blooming colorful' },
-    { id: 'exotic', name: 'Exotic Fruit Plants', keywords: 'dragon fruit passion avocado tropical rare' },
-    { id: 'palms', name: 'Palm Varieties', keywords: 'resort tropical palm trees tall' },
-    { id: 'spices', name: 'Spices', keywords: 'cinnamon cardamom pepper aromatic' },
-    { id: 'indoor', name: 'Indoor Plants', keywords: 'air purifying low maintenance desk houseplant' },
-    { id: 'shrubs', name: 'Shrubs & Bush', keywords: 'compact ornamental borders hedges landscape' },
-    { id: 'bonsai', name: 'Bonsai', keywords: 'miniature sculpted art ancient' },
-    { id: 'climbers', name: 'Climbers & Creepers', keywords: 'vines vertical green wall creeper' },
-    { id: 'cactus', name: 'Cactus & Succulents', keywords: 'hardy low water sunny desert' },
-    { id: 'lawn', name: 'Lawn Grass', keywords: 'carpet green grass garden ground' },
-    { id: 'bamboo', name: 'Bamboo', keywords: 'fast privacy fencing wood eco' },
-    { id: 'medicinal', name: 'Medicinal & Herbal Plants', keywords: 'tulsi aloe ashwagandha pharmacy ayurvedic' },
-  ];
+  const handleLogin = () => { setIsLoggedIn(true); localStorage.setItem('admin_logged_in', 'true'); };
+  const handleLogout = () => { setIsLoggedIn(false); localStorage.setItem('admin_logged_in', 'false'); };
+  const scrollToSection = (id) => { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth' }); };
 
   const searchResultsData = [
-    ...sections.map(s => ({ ...s, type: 'section' })),
-    ...plantCategories.map(c => ({ id: 'collection', label: c.name, subLabel: 'Category', type: 'category', keywords: c.keywords })),
-    ...customPlants.map(p => ({ id: 'collection', label: p.name, subLabel: `Custom Plant - ${p.collection}`, type: 'plant', keywords: `${p.desc} ${p.family} ${p.specs}` })),
-    ...clientWorks.map(w => ({ id: 'works', label: w.title, subLabel: `Project - ${w.tag || 'Work Done'}`, type: 'work', keywords: `${w.desc} ${w.tag}` }))
+    ...sectionsData.map(s => ({ ...s, type: 'section' })),
+    ...(allCategoriesData || []).map(c => ({ id: 'collection', label: (c?.name || 'Category'), subLabel: 'Category', type: 'category', keywords: (c?.keywords || '') })),
+    ...(customPlants || []).map(p => ({ id: 'collection', label: (p?.name || 'Plant'), subLabel: `Custom Plant - ${p?.collection || 'None'}`, type: 'plant', keywords: `${p?.desc} ${p?.family} ${p?.specs}` })),
+    ...(clientWorks || []).map(w => ({ id: 'works', label: (w?.title || 'Project'), subLabel: `Project - ${w?.tag || 'Work Done'}`, type: 'work', keywords: `${w?.desc} ${w?.tag}` }))
   ];
 
   const filteredResults = searchResultsData.filter(item =>
-    item.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.keywords.toLowerCase().includes(searchQuery.toLowerCase())
+    (item?.label || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (item?.keywords || '').toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  const [activeGalleryCat, setActiveGalleryCat] = useState(null);
-  const categoryGalleries = {
-    fruit: [
-      { id: 'f1', name: 'Banganapalli Mango', img: 'fruit_mango_premium_1777051984930.png', family: 'Anacardiaceae', desc: 'The King of Mangoes, known for its sweet, fiberless pulp and rich aroma.' },
-      { id: 'f2', name: 'Allahabad Guava', img: 'fruit_guava_premium_1777052010346.png', family: 'Myrtaceae', desc: 'Premium white guava, sweet and crunchy with a smooth texture.' },
-      { id: 'f3', name: 'Kagzi Lemon', img: 'fruit_lemon_premium_1777052033476.png', family: 'Rutaceae', desc: 'Juicy, thin-skinned lemons perfect for home use and beverages.' },
-      { id: 'f4', name: 'Ruby Pomegranate', img: 'fruit_pomegranate_premium_1777052062754.png', family: 'Lythraceae', desc: 'Deep red, jewel-like seeds packed with antioxidants and sweet juice.' },
-      { id: 'f5', name: 'Cricket Ball Sapota', img: 'fruit_sapota_premium_1777052087272.png', family: 'Sapotaceae', desc: 'Large, round, grainy-sweet fruit that melts in your mouth.' }
-    ],
-    avenues: [
-      { id: 'a1', name: 'Royal Gulmohar', img: 'avenue_gulmohar_premium_1777053249656.png', family: 'Fabaceae', desc: 'Stunning red-orange blossoms that transform any avenue into a floral paradise.' },
-      { id: 'a2', name: 'Neem Tree', img: 'avenue_trees.png', family: 'Meliaceae', desc: 'The eternal air purifier, providing vast shade and medicinal benefits.' },
-      { id: 'a3', name: 'Spathodea', img: 'avenue_trees.png', family: 'Bignoniaceae', desc: 'The African Tulip tree, featuring majestic orange-red bell-shaped flowers.' }
-    ],
-    flowers: [
-      { id: 'fl1', name: 'Vibrant Hibiscus', img: 'flower_hibiscus_premium_1777053279512.png', family: 'Malvaceae', desc: 'Bold, tropical blooms that add an instant splash of high-end color to your garden.' },
-      { id: 'fl2', name: 'Grand Rose', img: 'orchids.png', family: 'Rosaceae', desc: 'The queen of flowers, known for its exquisite fragrance and timeless beauty.' }
-    ],
-    exotic: [
-      { id: 'e1', name: 'Pink Dragon Fruit', img: 'exotic_dragon_fruit_premium_1777053313490.png', family: 'Cactaceae', desc: 'A futuristic-looking tropical delight, rich in fiber and antioxidants.' },
-      { id: 'e2', name: 'Rambutan', img: 'pet_friendly_plants.png', family: 'Sapindaceae', desc: 'Sweet, hairy exotic fruit with a succulent white flesh inside.' }
-    ],
-    palms: [
-      { id: 'p1', name: 'Bismarckia Palm', img: 'palm_bismarckia_premium_1777053345597.png', family: 'Arecaceae', desc: 'Architectural silver-blue fan fronds that define luxury landscaping.' },
-      { id: 'p2', name: 'Foxtail Palm', img: 'hero_fern.png', family: 'Arecaceae', desc: 'Elegant, fluffy fronds resembling a fox tail, perfect for poolside aesthetics.' }
-    ],
-    spices: [
-      { id: 's1', name: 'Black Pepper', img: 'spice_black_pepper_premium_1777053390918.png', family: 'Piperaceae', desc: 'The "King of Spices" climbing vine, adding culinary heritage to your backyard.' },
-      { id: 's2', name: 'Cinnamon', img: 'bonsai_plant.png', family: 'Lauraceae', desc: 'Aromatic evergreen tree whose bark provides the world\'s most beloved spice.' }
-    ],
-    indoor: [
-      { id: 'i1', name: 'Snake Plant', img: 'indoor_snake_plant_premium_1777053426619.png', family: 'Asparagaceae', desc: 'The ultimate air-purifying architectural plant, thriving on minimal care.' },
-      { id: 'i2', name: 'Peace Lily', img: 'pothos_plant.png', family: 'Araceae', desc: 'Elegant white spathes and deep green leaves that filter indoor toxins.' }
-    ],
-    bonsai: [
-      { id: 'b1', name: 'Desert Rose Bonsai', img: 'bonsai_adenium_premium_1777053466375.png', family: 'Apocynaceae', desc: 'Sculpted living art featuring a thick caudex and brilliant pink blooms.' },
-      { id: 'b2', name: 'Ficus Microcarpa', img: 'bonsai_plant.png', family: 'Moraceae', desc: 'Classic bonsai with ancient-looking aerial roots and dense foliage.' }
-    ],
-    bamboo: [
-      { id: 'ba1', name: 'Golden Bamboo', img: 'bamboo_golden_premium_1777053506018.png', family: 'Poaceae', desc: 'Fast-growing golden stalks that create a serene, luxury privacy screen.' }
-    ],
-    medicinal: [
-      { id: 'm1', name: 'Holy Tulsi', img: 'medical_tulsi_premium_1777053550042.png', family: 'Lamiaceae', desc: 'The "Queen of Herbs," revered for its immunity-boosting and spiritual properties.' }
-    ],
-    lawn: [
-      { id: 'l1', name: 'Mexican Grass', img: 'lawn_mexican_grass_premium_1777053593448.png', family: 'Poaceae', desc: 'Luxury manicured carpet grass, soft to the touch and vibrant emerald green.' }
-    ]
-  };
-
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   return (
     <>
-      {/* New Botanical Luxe Preloader */}
       <div className={`preloader ${!loading ? 'fade-out' : ''}`}>
         <main className="loader-lux-main">
           <div className="loader-icon-container">
             <div className="loader-pulse-bg"></div>
             <div className="loader-float-icon">
               <span className="material-symbols-outlined loader-icon-main">potted_plant</span>
-              <div className="loader-icon-sub">
-                <span className="material-symbols-outlined">eco</span>
-              </div>
+              <div className="loader-icon-sub"><span className="material-symbols-outlined">eco</span></div>
             </div>
           </div>
-          
           <div className="loader-status-wrap">
             <div className="loader-status-header">
               <span className="loader-status-label">Nurturing Experience</span>
@@ -234,18 +216,11 @@ function App() {
             <div className="loader-progress-track">
               <div className="loader-progress-bar" style={{ width: `${progress}%` }}></div>
             </div>
-            <p className="loader-status-hint">
-              Curating your seasonal collection...
-            </p>
+            <p className="loader-status-hint">Curating your seasonal collection...</p>
           </div>
         </main>
-        
-        <div className="loader-bg-decor">
-          <div className="loader-decor-blob blob-top"></div>
-          <div className="loader-decor-blob blob-bottom"></div>
-        </div>
       </div>
-      
+
       <main className="page-wrap">
         <section className="hero">
           <motion.div className="hero-bg" style={{ y: heroBgY }}></motion.div>
@@ -368,34 +343,13 @@ function App() {
     </motion.div>
 
     {(() => {
-      const allCategories = [
-        { id: 'fruit', name: 'Fruit Plants', img: 'fruit_plants.png', desc: 'Grow your own orchard with our premium fruit saplings — mango, guava, citrus & more.', family: 'Rosaceae', size: 'large' },
-        { id: 'avenues', name: 'Avenues', img: 'avenue_trees.png', desc: 'Grand, shade-giving trees perfect for lining walkways and garden paths.', family: 'Fabaceae', size: 'small' },
-        { id: 'flowers', name: 'Flowers', img: 'orchids.png', desc: 'Brighten your garden with vibrant roses, jasmine, marigolds and more.', family: 'Asteraceae', size: 'small' },
-        { id: 'exotic', name: 'Exotic Fruit Plants', img: 'pet_friendly_plants.png', desc: 'Rare tropical fruiting varieties — dragon fruit, passion fruit, avocado & more.', family: 'Cactaceae', size: 'large' },
-        { id: 'palms', name: 'Palm Varieties', img: 'hero_fern.png', desc: 'Elegant palm trees to give your garden a tropical, resort-like feel.', family: 'Arecaceae', size: 'small' },
-        { id: 'spices', name: 'Spices', img: 'bonsai_plant.png', desc: 'Grow cinnamon, cardamom, pepper and more aromatic spice plants at home.', family: 'Zingiberaceae', size: 'small' },
-        { id: 'indoor', name: 'Indoor Plants', img: 'pothos_plant.png', desc: 'Air-purifying, low-maintenance plants that thrive indoors.', family: 'Araceae', size: 'large' },
-        { id: 'shrubs', name: 'Shrubs & Bush', img: 'succulents.png', desc: 'Compact ornamental shrubs ideal for borders and hedges.', family: 'Myrtaceae', size: 'small' },
-        { id: 'bonsai', name: 'Bonsai', img: 'bonsai_plant.png', desc: 'Miniature masterpieces — sculpted living art for your space.', family: 'Various', size: 'small' },
-        { id: 'climbers', name: 'Climbers & Creepers', img: 'spider_plant.png', desc: 'Beautiful vines and climbers that add vertical greenery to any wall.', family: 'Convolvulaceae', size: 'large' },
-        { id: 'cactus', name: 'Cactus & Succulents', img: 'succulents.png', desc: 'Hardy, low-water beauties perfect for sunny spots and windowsills.', family: 'Cactaceae', size: 'small' },
-        { id: 'lawn', name: 'Lawn Grass', img: 'avenue_trees.png', desc: 'Premium lawn grass varieties for lush, green, carpet-like gardens.', family: 'Poaceae', size: 'small' },
-        { id: 'bamboo', name: 'Bamboo', img: 'hero_fern.png', desc: 'Fast-growing, eco-friendly bamboo for fencing, privacy and beauty.', family: 'Poaceae', size: 'large' },
-        { id: 'medicinal', name: 'Medicinal & Herbal Plants', img: 'pet_friendly_plants.png', desc: 'Tulsi, aloe vera, ashwagandha — nature\'s pharmacy in your garden.', family: 'Lamiaceae', size: 'small' },
-      ];
-
-      const initialCategories = allCategories.slice(0, 3);
+      const initialCategories = (allCategoriesData || []).slice(0, 3);
       const showAll = activeCollFilter === 'show-all';
       
-      // Merge initial categories with custom plants if they match the collection
-      const displayCategories = showAll 
-        ? allCategories 
-        : initialCategories;
+      const displayCategories = showAll ? (allCategoriesData || []) : initialCategories;
 
-      // Filter custom plants for the active collection or show all if in "See All" mode
-      const relevantCustomPlants = customPlants.filter(p => 
-        showAll || p.collection === allCategories.find(c => c.id === activeCollFilter.replace('filter-', ''))?.name
+      const relevantCustomPlants = (customPlants || []).filter(p => 
+        showAll || p.collection === (allCategoriesData || []).find(c => c.id === activeCollFilter.replace('filter-', ''))?.name
       );
 
       return (
@@ -430,13 +384,13 @@ function App() {
                   Back to Categories
                 </button>
                 <div className="view-title-wrap">
-                  <h3 className="view-title-lux">{allCategories.find(c => c.id === activeGalleryCat)?.name}</h3>
+                  <h3 className="view-title-lux">{(allCategoriesData || []).find(c => c.id === activeGalleryCat)?.name || 'Gallery'}</h3>
                   <p className="view-subtitle-lux">Curated specimens from Sri Satya Ramayya Nursery</p>
                 </div>
               </div>
               
               <div className="collection-grid-all">
-                {(categoryGalleries[activeGalleryCat] || []).map((plant, idx) => (
+                {(categoryGalleriesData[activeGalleryCat] || []).map((plant, idx) => (
                   <motion.div
                     key={plant.id}
                     className="coll-card coll-card-uniform"
@@ -458,7 +412,7 @@ function App() {
                   </motion.div>
                 ))}
                 {/* Custom Admin Plants for this category */}
-                {customPlants.filter(p => p.collection === allCategories.find(c => c.id === activeGalleryCat)?.name).map((plant, i) => (
+                {(customPlants || []).filter(p => p.collection === (allCategoriesData || []).find(c => c.id === activeGalleryCat)?.name).map((plant, i) => (
                   <motion.div
                     key={plant.id}
                     className="coll-card coll-card-uniform"
@@ -484,7 +438,7 @@ function App() {
             </motion.div>
           ) : (
             <div className={showAll ? 'collection-grid-all' : 'collection-grid'}>
-              {displayCategories.map((cat, i) => (
+              {(displayCategories || []).map((cat, i) => (
                 <motion.div
                   key={cat.id}
                   className={`coll-card ${showAll ? 'coll-card-uniform' : (cat.size === 'large' ? 'coll-card-large' : 'coll-card-small')}`}
@@ -509,13 +463,13 @@ function App() {
               ))}
 
               {/* Custom Admin Plants */}
-              {relevantCustomPlants.map((plant, i) => (
+              {(relevantCustomPlants || []).map((plant, i) => (
                 <motion.div
                   key={plant.id}
                   className={`coll-card ${showAll ? 'coll-card-uniform' : 'coll-card-small'}`}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: (displayCategories.length + i) * 0.1 }}
+                  transition={{ duration: 0.5, delay: ((displayCategories || []).length + i) * 0.1 }}
                 >
                   {plant.img ? (
                     <img src={plant.img} alt={`${plant.name} - Premium Plant`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
