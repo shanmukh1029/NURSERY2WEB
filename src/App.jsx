@@ -147,21 +147,43 @@ function App() {
 
   return (
     <>
-      {/* Ethereal Blossom Preloader */}
+      {/* Botanical Luxury Preloader (User Requested Design) */}
       <div className={`preloader ${!loading ? 'fade-out' : ''}`}>
-        <div className="ethereal-glow"></div>
-        
-        <div className="loader-lux-content">
-          <div className="loader-seed-wrap">
-            <div className="loader-aura-ring"></div>
-            <div className="loader-aura-ring" style={{ animationDelay: '1s' }}></div>
-            <svg className="loader-seed-svg" viewBox="0 0 100 100">
-              <path d="M50 20 C30 20 15 40 15 60 C15 85 50 95 50 95 C50 95 85 85 85 60 C85 40 70 20 50 20 Z" />
-            </svg>
+        <main className="loader-main">
+          <div className="loader-icon-area">
+            <div className="loader-icon-bg"></div>
+            <div className="loader-icon-wrap">
+              <span className="material-symbols-outlined loader-main-icon">potted_plant</span>
+              <div className="loader-sub-icon-wrap">
+                <span className="material-symbols-outlined loader-sub-icon">eco</span>
+              </div>
+            </div>
           </div>
 
-          <h2 className="loader-lux-title">Sri Satya Ramayya Nursery</h2>
-          <div className="loader-lux-count">{progress}%</div>
+          <div className="loader-progress-area">
+            <div className="loader-metrics">
+              <span className="loader-metrics-label">Nurturing Experience</span>
+              <span className="loader-metrics-count">{progress}%</span>
+            </div>
+            <div className="loader-bar-outer">
+              <div className="loader-bar-inner" style={{ width: `${progress}%` }}></div>
+            </div>
+            <p className="loader-caption">Curating your seasonal collection...</p>
+          </div>
+        </main>
+
+        <footer className="loader-footer">
+          <h1 className="loader-footer-title">The Botanical</h1>
+          <div className="loader-footer-divider-row">
+            <span className="loader-divider"></span>
+            <span className="loader-footer-est">Est. 2025</span>
+            <span className="loader-divider"></span>
+          </div>
+        </footer>
+
+        <div className="loader-bg-decor">
+          <div className="blob-secondary"></div>
+          <div className="blob-tertiary"></div>
         </div>
       </div>
       
