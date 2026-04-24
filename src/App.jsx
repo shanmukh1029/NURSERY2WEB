@@ -27,20 +27,20 @@ const sectionsData = [
 ];
 
 const allCategoriesData = [
-  { id: 'fruit', name: 'Fruit Plants', img: 'fruit_plants.png', desc: 'Grow your own orchard with our premium fruit saplings — mango, guava, citrus & more.', family: 'Rosaceae', size: 'large', keywords: 'mango guava citrus orchard sapling' },
+  { id: 'fruit', name: 'Fruit Plants', img: 'fruit_plants.png', desc: 'Grow your own orchard with our premium fruit saplings \u2014 mango, guava, citrus & more.', family: 'Rosaceae', size: 'large', keywords: 'mango guava citrus orchard sapling' },
   { id: 'avenues', name: 'Avenues', img: 'avenue_trees.png', desc: 'Grand, shade-giving trees perfect for lining walkways and garden paths.', family: 'Fabaceae', size: 'small', keywords: 'shade trees walkways garden paths tall neem' },
   { id: 'flowers', name: 'Flowers', img: 'orchids.png', desc: 'Brighten your garden with vibrant roses, jasmine, marigolds and more.', family: 'Asteraceae', size: 'small', keywords: 'roses jasmine marigold blooming colorful' },
-  { id: 'exotic', name: 'Exotic Fruit Plants', img: 'pet_friendly_plants.png', desc: 'Rare tropical fruiting varieties — dragon fruit, passion fruit, avocado & more.', family: 'Cactaceae', size: 'large', keywords: 'dragon fruit passion avocado tropical rare' },
+  { id: 'exotic', name: 'Exotic Fruit Plants', img: 'pet_friendly_plants.png', desc: 'Rare tropical fruiting varieties \u2014 dragon fruit, passion fruit, avocado & more.', family: 'Cactaceae', size: 'large', keywords: 'dragon fruit passion avocado tropical rare' },
   { id: 'palms', name: 'Palm Varieties', img: 'hero_fern.png', desc: 'Elegant palm trees to give your garden a tropical, resort-like feel.', family: 'Arecaceae', size: 'small', keywords: 'resort tropical palm trees tall' },
   { id: 'spices', name: 'Spices', img: 'bonsai_plant.png', desc: 'Grow cinnamon, cardamom, pepper and more aromatic spice plants at home.', family: 'Zingiberaceae', size: 'small', keywords: 'cinnamon cardamom pepper aromatic' },
   { id: 'indoor', name: 'Indoor Plants', img: 'pothos_plant.png', desc: 'Air-purifying, low-maintenance plants that thrive indoors.', family: 'Araceae', size: 'large', keywords: 'air purifying low maintenance desk houseplant' },
   { id: 'shrubs', name: 'Shrubs & Bush', img: 'succulents.png', desc: 'Compact ornamental shrubs ideal for borders and hedges.', family: 'Myrtaceae', size: 'small', keywords: 'compact ornamental borders hedges landscape' },
-  { id: 'bonsai', name: 'Bonsai', img: 'bonsai_plant.png', desc: 'Miniature masterpieces — sculpted living art for your space.', family: 'Various', size: 'small', keywords: 'miniature sculpted art ancient' },
+  { id: 'bonsai', name: 'Bonsai', img: 'bonsai_plant.png', desc: 'Miniature masterpieces \u2014 sculpted living art for your space.', family: 'Various', size: 'small', keywords: 'miniature sculpted art ancient' },
   { id: 'climbers', name: 'Climbers & Creepers', img: 'spider_plant.png', desc: 'Beautiful vines and climbers that add vertical greenery to any wall.', family: 'Convolvulaceae', size: 'large', keywords: 'vines vertical green wall creeper' },
   { id: 'cactus', name: 'Cactus & Succulents', img: 'succulents.png', desc: 'Hardy, low-water beauties perfect for sunny spots and windowsills.', family: 'Cactaceae', size: 'small', keywords: 'hardy low water sunny desert' },
   { id: 'lawn', name: 'Lawn Grass', img: 'avenue_trees.png', desc: 'Premium lawn grass varieties for lush, green, carpet-like gardens.', family: 'Poaceae', size: 'small', keywords: 'carpet green grass garden ground' },
   { id: 'bamboo', name: 'Bamboo', img: 'hero_fern.png', desc: 'Fast-growing, eco-friendly bamboo for fencing, privacy and beauty.', family: 'Poaceae', size: 'large', keywords: 'fast privacy fencing wood eco' },
-  { id: 'medicinal', name: 'Medicinal & Herbal Plants', img: 'pet_friendly_plants.png', desc: 'Tulsi, aloe vera, ashwagandha — nature\'s pharmacy in your garden.', family: 'Lamiaceae', size: 'small', keywords: 'tulsi aloe ashwagandha pharmacy ayurvedic' },
+  { id: 'medicinal', name: 'Medicinal & Herbal Plants', img: 'pet_friendly_plants.png', desc: 'Tulsi, aloe vera, ashwagandha \u2014 nature\'s pharmacy in your garden.', family: 'Lamiaceae', size: 'small', keywords: 'tulsi aloe ashwagandha pharmacy ayurvedic' },
 ];
 
 const categoryGalleriesData = {
@@ -161,6 +161,28 @@ function App() {
     const isLocked = loading || searchOpen || showLogin || showAdmin;
     document.body.style.overflow = isLocked ? 'hidden' : 'auto';
   }, [loading, searchOpen, showLogin, showAdmin]);
+
+  useEffect(() => {
+    const handlePopState = (e) => {
+      if (e.state && e.state.category !== undefined) {
+        setActiveGalleryCat(e.state.category);
+      } else {
+        setActiveGalleryCat(null);
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const openCategory = (catId) => {
+    setActiveGalleryCat(catId);
+    window.history.pushState({ category: catId }, '', '');
+  };
+
+  const closeCategory = () => {
+    setActiveGalleryCat(null);
+    window.history.pushState({ category: null }, '', '');
+  };
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -389,7 +411,7 @@ function App() {
         className="collection-detail-view"
       >
         <div className="collection-view-header">
-          <button className="back-btn-lux" onClick={() => setActiveGalleryCat(null)}>
+          <button className="back-btn-lux" onClick={closeCategory}>
             <span className="material-symbols-outlined">arrow_back</span>
             Back to Categories
           </button>
@@ -455,7 +477,7 @@ function App() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: showAllCats ? i * 0.05 : i * 0.1 }}
-            onClick={() => setActiveGalleryCat(cat.id)}
+            onClick={() => openCategory(cat.id)}
             style={{ cursor: 'pointer' }}
           >
             <img src={cat.img} alt={`${cat.name} - Sri Satya Ramayya Nursery Category`} loading="lazy" />
