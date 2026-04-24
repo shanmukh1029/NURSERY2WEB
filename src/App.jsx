@@ -174,14 +174,6 @@ function App() {
           </div>
         </main>
         
-        <footer className="loader-footer-lux">
-          <h1 className="loader-lux-brand">The Botanical</h1>
-          <div className="loader-lux-est">
-            <span className="loader-line-decor"></span>
-            <span className="loader-est-text">Est. 2024</span>
-            <span className="loader-line-decor"></span>
-          </div>
-        </footer>
         
         <div className="loader-bg-decor">
           <div className="loader-decor-blob blob-top"></div>
