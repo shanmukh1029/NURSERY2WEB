@@ -1852,146 +1852,154 @@
       .works-grid { grid-template-columns: 1fr; }
     }
 
-    /* ===== SENIOR UI/UX PRELOADER ===== */
+    /* ===== BOTANICAL BLUEPRINT PRELOADER ===== */
     .preloader {
       position: fixed;
       inset: 0;
-      background: #040604;
+      background: #060806;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 10000;
       overflow: hidden;
-      transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+      transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
-    /* Noise texture overlay */
+    /* Architectural Grid Background */
     .preloader::before {
       content: "";
       position: absolute;
       inset: 0;
-      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-      opacity: 0.15;
-      mix-blend-mode: overlay;
+      background-image: 
+        linear-gradient(rgba(109, 170, 82, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(109, 170, 82, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -1;
+    }
+
+    /* Scanning Light Bar */
+    .preloader::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: 0;
+      width: 100%;
+      height: 10%;
+      background: linear-gradient(to bottom, transparent, rgba(109, 170, 82, 0.1), transparent);
+      animation: scan-vertical 4s infinite linear;
+      z-index: 1;
       pointer-events: none;
     }
 
     .preloader.fade-out {
       opacity: 0;
-      transform: scale(1.05);
-      filter: blur(10px);
+      transform: translateY(-100%);
     }
 
-    .loader-blob {
-      position: absolute;
-      width: 45vw;
-      height: 45vw;
-      background: var(--lime);
-      filter: blur(150px);
-      opacity: 0.05;
-      border-radius: 50%;
-      z-index: -1;
-    }
-    .blob-1 { top: -15%; left: -10%; animation: blob-orbit 20s infinite linear; }
-    .blob-2 { bottom: -15%; right: -10%; animation: blob-orbit 25s infinite linear reverse; }
-
-    .loader-container {
+    .loader-frame {
       position: relative;
+      width: 400px;
+      padding: 40px;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
     }
 
-    .loader-ring-wrap {
-      position: relative;
-      width: 140px;
-      height: 140px;
+    .loader-top-bar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 60px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 4px;
+      color: var(--lime);
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    .loader-center-art {
+      width: 100%;
+      height: 160px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 40px;
+      position: relative;
+      margin-bottom: 60px;
     }
 
-    .loader-ring-bg {
-      position: absolute;
+    .loader-svg-blueprint {
+      width: 120px;
+      height: 120px;
+      stroke: var(--lime);
+      stroke-width: 0.5;
+      fill: none;
+      filter: drop-shadow(0 0 10px rgba(109, 170, 82, 0.2));
+    }
+
+    .blueprint-path {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: draw-blueprint 4s forwards ease-out;
+    }
+
+    .loader-bottom-info {
       width: 100%;
-      height: 100%;
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 50%;
     }
 
-    .loader-ring-progress {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border: 2px solid transparent;
-      border-top-color: var(--lime);
-      border-radius: 50%;
-      filter: drop-shadow(0 0 10px var(--lime));
-      transition: transform 0.1s linear;
-    }
-
-    .loader-svg {
-      width: 50px;
-      height: 50px;
-      animation: svg-pulse 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .loader-info {
-      text-align: center;
-    }
-
-    .loader-percentage {
+    .loader-main-title {
       font-family: var(--font-mono);
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       color: #fff;
       margin-bottom: 8px;
       letter-spacing: 2px;
-      font-variant-numeric: tabular-nums;
     }
 
-    .loader-title {
+    .loader-data-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .loader-count {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--lime);
-      text-transform: uppercase;
-      letter-spacing: 8px;
       font-weight: 700;
-      opacity: 0.8;
-      margin: 0;
     }
 
-    .loader-line-wrap {
-      width: 60px;
-      height: 1px;
-      background: rgba(255,255,255,0.1);
-      margin-top: 20px;
+    .loader-bar-bg {
+      flex: 1;
+      height: 2px;
+      background: rgba(255,255,255,0.05);
       position: relative;
-      overflow: hidden;
     }
 
-    .loader-line-fill {
+    .loader-bar-progress {
       position: absolute;
-      width: 40%;
       height: 100%;
       background: var(--lime);
-      animation: slide-indefinite 1.5s infinite ease-in-out;
+      width: 0%;
+      transition: width 0.3s ease-out;
     }
 
-    @keyframes blob-orbit {
-      0% { transform: rotate(0deg) translate(50px) rotate(0deg); }
-      100% { transform: rotate(360deg) translate(50px) rotate(-360deg); }
+    .loader-footer {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      letter-spacing: 3px;
     }
 
-    @keyframes svg-pulse {
-      0%, 100% { transform: scale(1); opacity: 0.4; }
-      50% { transform: scale(1.15); opacity: 1; }
+    @keyframes scan-vertical {
+      0% { top: -50%; }
+      100% { top: 150%; }
     }
 
-    @keyframes slide-indefinite {
-      0% { left: -50%; }
-      100% { left: 150%; }
+    @keyframes draw-blueprint {
+      to { stroke-dashoffset: 0; }
     }
 
   

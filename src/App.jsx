@@ -147,31 +147,36 @@ function App() {
 
   return (
     <>
-      {/* Senior UI/UX Preloader */}
+      {/* Botanical Blueprint Preloader */}
       <div className={`preloader ${!loading ? 'fade-out' : ''}`}>
-        <div className="loader-blob blob-1"></div>
-        <div className="loader-blob blob-2"></div>
-        
-        <div className="loader-container">
-          <div className="loader-ring-wrap">
-            <div className="loader-ring-bg"></div>
-            <div className="loader-ring-progress" style={{ transform: `rotate(${progress * 3.6}deg)` }}></div>
-            <svg className="loader-svg" viewBox="0 0 100 100">
-              {/* Organic Leaf Shape */}
-              <path 
-                d="M50 20 C30 20 15 40 15 60 C15 85 50 95 50 95 C50 95 85 85 85 60 C85 40 70 20 50 20 Z" 
-                fill="var(--lime)" 
-                opacity="0.9"
-              />
-              <path d="M50 20 L50 95 M50 40 L35 55 M50 60 L65 45 M50 75 L35 85" stroke="rgba(0,0,0,0.2)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-            </svg>
+        <div className="loader-frame">
+          <div className="loader-top-bar">
+            <span>SRN_System_v4.0</span>
+            <span>Loc: Nursery_Primary</span>
           </div>
           
-          <div className="loader-info">
-            <div className="loader-percentage">{progress}%</div>
-            <h1 className="loader-title">Sri Satya Ramayya Nursery</h1>
-            <div className="loader-line-wrap">
-              <div className="loader-line-fill"></div>
+          <div className="loader-center-art">
+            <svg className="loader-svg-blueprint" viewBox="0 0 100 100">
+              <path 
+                className="blueprint-path"
+                d="M50 20 C30 20 15 40 15 60 C15 85 50 95 50 95 C50 95 85 85 85 60 C85 40 70 20 50 20 Z" 
+              />
+              <path className="blueprint-path" d="M50 20 L50 95" opacity="0.3" />
+              <path className="blueprint-path" d="M50 40 L35 55" opacity="0.3" />
+              <path className="blueprint-path" d="M50 60 L65 45" opacity="0.3" />
+            </svg>
+          </div>
+
+          <div className="loader-bottom-info">
+            <h2 className="loader-main-title">Botanical Assembly</h2>
+            <div className="loader-data-row">
+              <span className="loader-count">{progress}%</span>
+              <div className="loader-bar-bg">
+                <div className="loader-bar-progress" style={{ width: `${progress}%` }}></div>
+              </div>
+            </div>
+            <div className="loader-footer">
+              Initiating Organic Data Synchronization...
             </div>
           </div>
         </div>
