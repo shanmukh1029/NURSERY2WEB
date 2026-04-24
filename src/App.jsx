@@ -147,9 +147,12 @@ function App() {
 
   return (
     <>
-      {/* Premium Loader */}
+      {/* Ultra-Premium Preloader */}
       <div className={`preloader ${!loading ? 'fade-out' : ''}`}>
-        <div className="loader-content">
+        <div className="loader-blob blob-1"></div>
+        <div className="loader-blob blob-2"></div>
+        
+        <div className="loader-card">
           <div className="loader-logo-wrap">
             <svg className="loader-svg" viewBox="0 0 100 100">
               <path 
@@ -157,11 +160,8 @@ function App() {
                 fill="none" 
                 stroke="var(--lime)" 
                 strokeWidth="2"
-                strokeDasharray="300"
-                strokeDashoffset="300"
-                style={{ animation: 'svg-dash 3s forwards ease-out' }}
               />
-              <path d="M50 95 L50 40 M35 70 L50 55 L65 70" stroke="var(--lime)" strokeWidth="1.5" fill="none" opacity="0.6" />
+              <path d="M50 95 L50 40 M35 70 L50 55 L65 70" stroke="var(--lime)" strokeWidth="1.5" fill="none" opacity="0.4" />
             </svg>
           </div>
           <div className="loader-percentage">{progress}%</div>
