@@ -147,28 +147,31 @@ function App() {
 
   return (
     <>
-      {/* Ultra-Premium Preloader */}
+      {/* Senior UI/UX Preloader */}
       <div className={`preloader ${!loading ? 'fade-out' : ''}`}>
         <div className="loader-blob blob-1"></div>
         <div className="loader-blob blob-2"></div>
         
-        <div className="loader-card">
-          <div className="loader-logo-wrap">
+        <div className="loader-container">
+          <div className="loader-ring-wrap">
+            <div className="loader-ring-bg"></div>
+            <div className="loader-ring-progress" style={{ transform: `rotate(${progress * 3.6}deg)` }}></div>
             <svg className="loader-svg" viewBox="0 0 100 100">
               <path 
                 d="M50 95 C20 75 5 50 15 25 C25 5 45 10 50 20 C55 10 75 5 85 25 C95 50 80 75 50 95Z" 
-                fill="none" 
-                stroke="var(--lime)" 
-                strokeWidth="2"
+                fill="var(--lime)" 
+                opacity="0.9"
               />
-              <path d="M50 95 L50 40 M35 70 L50 55 L65 70" stroke="var(--lime)" strokeWidth="1.5" fill="none" opacity="0.4" />
             </svg>
           </div>
-          <div className="loader-percentage">{progress}%</div>
-          <div className="loader-progress-container">
-            <div className="loader-progress-fill" style={{ width: `${progress}%` }}></div>
+          
+          <div className="loader-info">
+            <div className="loader-percentage">{progress}%</div>
+            <h1 className="loader-title">Sri Satya Ramayya Nursery</h1>
+            <div className="loader-line-wrap">
+              <div className="loader-line-fill"></div>
+            </div>
           </div>
-          <p className="loader-subtitle">Sri Satya Ramayya Nursery</p>
         </div>
       </div>
       
