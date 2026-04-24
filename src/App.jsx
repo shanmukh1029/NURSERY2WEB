@@ -148,6 +148,15 @@ function App() {
     item.keywords.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const [showFruitGallery, setShowFruitGallery] = useState(false);
+  const fruitPlantsGallery = [
+    { id: 'f1', name: 'Banganapalli Mango', img: 'fruit_mango_premium_1777051984930.png', family: 'Anacardiaceae', desc: 'The King of Mangoes, known for its sweet, fiberless pulp and rich aroma.' },
+    { id: 'f2', name: 'Allahabad Guava', img: 'fruit_guava_premium_1777052010346.png', family: 'Myrtaceae', desc: 'Premium white guava, sweet and crunchy with a smooth texture.' },
+    { id: 'f3', name: 'Kagzi Lemon', img: 'fruit_lemon_premium_1777052033476.png', family: 'Rutaceae', desc: 'Juicy, thin-skinned lemons perfect for home use and beverages.' },
+    { id: 'f4', name: 'Ruby Pomegranate', img: 'fruit_pomegranate_premium_1777052062754.png', family: 'Lythraceae', desc: 'Deep red, jewel-like seeds packed with antioxidants and sweet juice.' },
+    { id: 'f5', name: 'Cricket Ball Sapota', img: 'fruit_sapota_premium_1777052087272.png', family: 'Sapotaceae', desc: 'Large, round, grainy-sweet fruit that melts in your mouth.' }
+  ];
+
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -363,58 +372,103 @@ function App() {
             </button>
           </div>
 
-          <div className={showAll ? 'collection-grid-all' : 'collection-grid'}>
-            {displayCategories.map((cat, i) => (
-              <motion.div
-                key={cat.id}
-                className={`coll-card ${showAll ? 'coll-card-uniform' : (cat.size === 'large' ? 'coll-card-large' : 'coll-card-small')}`}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: showAll ? i * 0.05 : i * 0.1 }}
-              >
-                <img src={cat.img} alt={`${cat.name} - Sri Satya Ramayya Nursery Category`} loading="lazy" />
-                <div className="coll-card-overlay"></div>
-                <div className="coll-card-content">
-                  <h3 className="coll-card-title">{cat.name}</h3>
-                  <p className="coll-card-desc">{cat.desc}</p>
-                  <span className="coll-arrow">→</span>
+          {showFruitGallery ? (
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="collection-detail-view"
+            >
+              <div className="collection-view-header">
+                <button className="back-btn-lux" onClick={() => setShowFruitGallery(false)}>
+                  <span className="material-symbols-outlined">arrow_back</span>
+                  Back to Categories
+                </button>
+                <div className="view-title-wrap">
+                  <h3 className="view-title-lux">Premium Fruit Varieties</h3>
+                  <p className="view-subtitle-lux">Curated from Sri Satya Ramayya's heritage orchards</p>
                 </div>
-                <div className="coll-tag">
-                  <span className="coll-tag-star">★</span>
-                  {cat.family}
-                </div>
-              </motion.div>
-            ))}
-
-            {/* Custom Admin Plants */}
-            {relevantCustomPlants.map((plant, i) => (
-              <motion.div
-                key={plant.id}
-                className={`coll-card ${showAll ? 'coll-card-uniform' : 'coll-card-small'}`}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: (displayCategories.length + i) * 0.1 }}
-              >
-                {plant.img ? (
-                  <img src={plant.img} alt={`${plant.name} - Premium Plant`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
-                ) : (
-                  <div style={{ width: '100%', height: '100%', background: '#1e2e1a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '40px' }}>
-                    🌿
+              </div>
+              
+              <div className="collection-grid-all">
+                {fruitPlantsGallery.map((plant, idx) => (
+                  <motion.div
+                    key={plant.id}
+                    className="coll-card coll-card-uniform"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                  >
+                    <img src={plant.img} alt={plant.name} loading="lazy" />
+                    <div className="coll-card-overlay"></div>
+                    <div className="coll-card-content">
+                      <h3 className="coll-card-title">{plant.name}</h3>
+                      <p className="coll-card-desc">{plant.desc}</p>
+                      <span className="coll-arrow">→</span>
+                    </div>
+                    <div className="coll-tag">
+                      <span className="coll-tag-star">★</span>
+                      {plant.family}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ) : (
+            <div className={showAll ? 'collection-grid-all' : 'collection-grid'}>
+              {displayCategories.map((cat, i) => (
+                <motion.div
+                  key={cat.id}
+                  className={`coll-card ${showAll ? 'coll-card-uniform' : (cat.size === 'large' ? 'coll-card-large' : 'coll-card-small')}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: showAll ? i * 0.05 : i * 0.1 }}
+                  onClick={() => { if (cat.id === 'fruit') setShowFruitGallery(true); }}
+                  style={{ cursor: cat.id === 'fruit' ? 'pointer' : 'default' }}
+                >
+                  <img src={cat.img} alt={`${cat.name} - Sri Satya Ramayya Nursery Category`} loading="lazy" />
+                  <div className="coll-card-overlay"></div>
+                  <div className="coll-card-content">
+                    <h3 className="coll-card-title">{cat.name}</h3>
+                    <p className="coll-card-desc">{cat.desc}</p>
+                    <span className="coll-arrow">→</span>
                   </div>
-                )}
-                <div className="coll-card-overlay"></div>
-                <div className="coll-card-content">
-                  <h3 className="coll-card-title">{plant.name}</h3>
-                  <p className="coll-card-desc">{plant.desc || plant.specs || 'Nurtured with care at Sri Satya Ramayya Nursery.'}</p>
-                  <div className="admin-plant-price-badge">₹{plant.price || 'Contact'}</div>
-                </div>
-                <div className="coll-tag">
-                  <span className="coll-tag-star">★</span>
-                  {plant.family || 'Specimen'}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                  <div className="coll-tag">
+                    <span className="coll-tag-star">★</span>
+                    {cat.family}
+                  </div>
+                </motion.div>
+              ))}
+
+              {/* Custom Admin Plants */}
+              {relevantCustomPlants.map((plant, i) => (
+                <motion.div
+                  key={plant.id}
+                  className={`coll-card ${showAll ? 'coll-card-uniform' : 'coll-card-small'}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: (displayCategories.length + i) * 0.1 }}
+                >
+                  {plant.img ? (
+                    <img src={plant.img} alt={`${plant.name} - Premium Plant`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                  ) : (
+                    <div style={{ width: '100%', height: '100%', background: '#1e2e1a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '40px' }}>
+                      🌿
+                    </div>
+                  )}
+                  <div className="coll-card-overlay"></div>
+                  <div className="coll-card-content">
+                    <h3 className="coll-card-title">{plant.name}</h3>
+                    <p className="coll-card-desc">{plant.desc || plant.specs || 'Nurtured with care at Sri Satya Ramayya Nursery.'}</p>
+                    <div className="admin-plant-price-badge">₹{plant.price || 'Contact'}</div>
+                  </div>
+                  <div className="coll-tag">
+                    <span className="coll-tag-star">★</span>
+                    {plant.family || 'Specimen'}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </>
       );
     })()}

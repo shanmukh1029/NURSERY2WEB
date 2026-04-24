@@ -2053,6 +2053,54 @@
     .blob-top { top: -10%; left: -10%; background: rgba(210, 232, 216, 0.1); }
     .blob-bottom { bottom: -10%; right: -10%; background: rgba(255, 219, 207, 0.1); }
 
+    /* ===== COLLECTION DETAIL VIEW ===== */
+    .collection-detail-view {
+      padding: 0 0 40px;
+    }
+    .collection-view-header {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .back-btn-lux {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid #eee;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-family: var(--font-main);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--botanical-primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: fit-content;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .back-btn-lux:hover {
+      transform: translateX(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      background: var(--botanical-bg);
+    }
+    .view-title-wrap {
+      border-left: 4px solid var(--botanical-primary);
+      padding-left: 20px;
+    }
+    .view-title-lux {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+    .view-subtitle-lux {
+      font-size: 16px;
+      color: #777;
+    }
+
     /* ===== RESPONSIVE REFINEMENTS (SENIOR UI/UX) ===== */
     @media (max-width: 768px) {
       /* Base fixes */
