@@ -148,6 +148,14 @@ function App() {
     item.keywords.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <>
       {/* New Botanical Luxe Preloader */}
@@ -177,7 +185,6 @@ function App() {
           </div>
         </main>
         
-        
         <div className="loader-bg-decor">
           <div className="loader-decor-blob blob-top"></div>
           <div className="loader-decor-blob blob-bottom"></div>
@@ -185,93 +192,93 @@ function App() {
       </div>
       
       <main className="page-wrap">
-  <section className="hero">
-    <motion.div className="hero-bg" style={{ y: heroBgY }}></motion.div>
-    <nav className="navbar">
-      <span className="nav-logo">Sri Satya Ramayya Nursery</span>
-      <ul className="nav-links">
-        <li><a href="#" className="active" id="nav-home" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Home</a></li>
-        <li><a href="#contact" id="nav-contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>Contact</a></li>
-      </ul>
-      <div className="nav-right">
-        <button className="nav-icon-btn" id="btn-search" aria-label="Search" onClick={() => setSearchOpen(true)}>
-          <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </button>
-        <button className="nav-btn" id="btn-shop">Shop</button>
-        {isLoggedIn ? (
-          <button className="nav-btn nav-btn-admin" id="btn-admin" onClick={() => setShowAdmin(true)}>Dashboard</button>
-        ) : (
-          <button className="nav-btn" id="btn-login" onClick={() => setShowLogin(true)}>Login</button>
-        )}
-      </div>
-    </nav>
+        <section className="hero">
+          <motion.div className="hero-bg" style={{ y: heroBgY }}></motion.div>
+          <nav className="navbar">
+            <span className="nav-logo">Sri Satya Ramayya Nursery</span>
+            <ul className="nav-links">
+              <li><a href="#" className="active" id="nav-home" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Home</a></li>
+              <li><a href="#contact" id="nav-contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>Contact</a></li>
+            </ul>
+            <div className="nav-right">
+              <button className="nav-icon-btn" id="btn-search" aria-label="Search" onClick={() => setSearchOpen(true)}>
+                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </button>
+              <button className="nav-btn" id="btn-shop">Shop</button>
+              {isLoggedIn ? (
+                <button className="nav-btn nav-btn-admin" id="btn-admin" onClick={() => setShowAdmin(true)}>Dashboard</button>
+              ) : (
+                <button className="nav-btn" id="btn-login" onClick={() => setShowLogin(true)}>Login</button>
+              )}
+            </div>
+          </nav>
 
-    {/* Search Overlay */}
-    {searchOpen && (
-      <motion.div 
-        className="search-overlay"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.25 }}
-        onClick={() => setSearchOpen(false)}
-      >
-        <motion.div 
-          className="search-modal"
-          initial={{ opacity: 0, y: -30, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.3 }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="search-header">
-            <svg width="18" height="18" fill="none" stroke="#888" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input 
-              className="search-input" 
-              type="text" 
-              placeholder="Search plants, blog, offers..." 
-              autoFocus 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button className="search-close" onClick={() => { setSearchOpen(false); setSearchQuery(''); }}>✕</button>
-          </div>
-          <div className="search-results">
-            {searchQuery.length === 0 ? (
-              <div className="search-hint">Start typing to search across sections, categories, and plants...</div>
-            ) : filteredResults.length > 0 ? (
-              filteredResults.map((item, idx) => (
-                <button 
-                  key={`${item.id}-${idx}`} 
-                  className="search-result-item" 
-                  onClick={() => { 
-                    scrollToSection(item.id); 
-                    if (item.type === 'category') setActiveCollFilter('show-all');
-                    setSearchOpen(false); 
-                    setSearchQuery(''); 
-                  }}
-                >
-                  <div className="search-result-content">
-                    <span className="search-result-label">{item.label}</span>
-                    {item.subLabel && <span className="search-result-sub">{item.subLabel}</span>}
-                  </div>
-                  <span className="search-result-arrow">→</span>
-                </button>
-              ))
-            ) : (
-              <div className="search-hint">No results found for "{searchQuery}"</div>
-            )}
-          </div>
-        </motion.div>
-      </motion.div>
-    )}
+          {/* Search Overlay */}
+          {searchOpen && (
+            <motion.div 
+              className="search-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setSearchOpen(false)}
+            >
+              <motion.div 
+                className="search-modal"
+                initial={{ opacity: 0, y: -30, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.3 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="search-header">
+                  <svg width="18" height="18" fill="none" stroke="#888" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input 
+                    className="search-input" 
+                    type="text" 
+                    placeholder="Search plants, blog, offers..." 
+                    autoFocus 
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <button className="search-close" onClick={() => { setSearchOpen(false); setSearchQuery(''); }}>✕</button>
+                </div>
+                <div className="search-results">
+                  {searchQuery.length === 0 ? (
+                    <div className="search-hint">Start typing to search across sections, categories, and plants...</div>
+                  ) : filteredResults.length > 0 ? (
+                    filteredResults.map((item, idx) => (
+                      <button 
+                        key={`${item.id}-${idx}`} 
+                        className="search-result-item" 
+                        onClick={() => { 
+                          scrollToSection(item.id); 
+                          if (item.type === 'category') setActiveCollFilter('show-all');
+                          setSearchOpen(false); 
+                          setSearchQuery(''); 
+                        }}
+                      >
+                        <div className="search-result-content">
+                          <span className="search-result-label">{item.label}</span>
+                          {item.subLabel && <span className="search-result-sub">{item.subLabel}</span>}
+                        </div>
+                        <span className="search-result-arrow">→</span>
+                      </button>
+                    ))
+                  ) : (
+                    <div className="search-hint">No results found for "{searchQuery}"</div>
+                  )}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
 
-    <div className="hero-content">
-      <motion.div 
-        className="hero-text-center"
-        initial="hidden" animate="visible"
-        variants={textContainer}
-        style={{ y: heroTextY }}
-      >
+          <div className="hero-content">
+            <motion.div 
+              className="hero-text-center"
+              initial="hidden" animate="visible"
+              variants={textContainer}
+              style={{ y: isMobile ? 0 : heroTextY }}
+            >
         <motion.p className="hero-subtitle" variants={textItem}>With Sri Satya Ramayya Nursery</motion.p>
         <motion.h1 className="hero-title" variants={textItem}>Grow Happiness at Home</motion.h1>
         <motion.p className="hero-desc" variants={textItem}>From your desk to your balcony — Sri Satya Ramayya Nursery helps you create a calm corner of nature. Explore plants that purify air and refresh your everyday moments.</motion.p>

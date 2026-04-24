@@ -2094,8 +2094,9 @@
       }
       .hero-bottom {
         flex-direction: column;
-        gap: 20px;
+        gap: 30px;
         width: 100%;
+        margin-top: 40px; /* Crucial: pushes cards away from wrapping text */
       }
       .hero-stat-card {
         padding: 15px;
