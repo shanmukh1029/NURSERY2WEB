@@ -63,12 +63,20 @@ function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2500);
-    return () => clearTimeout(timer);
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => setLoading(false), 500);
+          return 100;
+        }
+        return prev + 1;
+      });
+    }, 20); // Faster, smooth increment
+    return () => clearInterval(interval);
   }, []);
 
   // Admin state
@@ -139,13 +147,29 @@ function App() {
 
   return (
     <>
-      {/* Loading Screen */}
+      {/* Premium Loader */}
       <div className={`preloader ${!loading ? 'fade-out' : ''}`}>
-        <div className="loader-leaf">🌿</div>
-        <div className="loader-progress-wrap">
-          <div className="loader-progress-bar"></div>
+        <div className="loader-content">
+          <div className="loader-logo-wrap">
+            <svg className="loader-svg" viewBox="0 0 100 100">
+              <path 
+                d="M50 95 C20 75 5 50 15 25 C25 5 45 10 50 20 C55 10 75 5 85 25 C95 50 80 75 50 95Z" 
+                fill="none" 
+                stroke="var(--lime)" 
+                strokeWidth="2"
+                strokeDasharray="300"
+                strokeDashoffset="300"
+                style={{ animation: 'svg-dash 3s forwards ease-out' }}
+              />
+              <path d="M50 95 L50 40 M35 70 L50 55 L65 70" stroke="var(--lime)" strokeWidth="1.5" fill="none" opacity="0.6" />
+            </svg>
+          </div>
+          <div className="loader-percentage">{progress}%</div>
+          <div className="loader-progress-container">
+            <div className="loader-progress-fill" style={{ width: `${progress}%` }}></div>
+          </div>
+          <p className="loader-subtitle">Sri Satya Ramayya Nursery</p>
         </div>
-        <div className="loader-text">Nurturing your experience...</div>
       </div>
       
 
