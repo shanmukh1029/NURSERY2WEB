@@ -2053,6 +2053,138 @@
     .blob-top { top: -10%; left: -10%; background: rgba(210, 232, 216, 0.1); }
     .blob-bottom { bottom: -10%; right: -10%; background: rgba(255, 219, 207, 0.1); }
 
+    /* ===== RESPONSIVE REFINEMENTS (SENIOR UI/UX) ===== */
+    @media (max-width: 768px) {
+      /* Base fixes */
+      body { font-size: 14px; }
+      
+      /* Navbar Mobile */
+      .navbar {
+        padding: 15px 20px;
+        justify-content: space-between;
+      }
+      .nav-logo {
+        font-size: 16px;
+        margin-right: 0;
+        max-width: 150px;
+        line-height: 1.2;
+      }
+      .nav-links { display: none; } /* Hide links for simple mobile UI */
+      .nav-right { gap: 4px; }
+      .nav-btn, .nav-icon-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+        height: 34px;
+      }
+      
+      /* Hero Mobile */
+      .hero-content {
+        padding: 100px 20px 40px;
+        text-align: center;
+        align-items: center;
+      }
+      .hero-title {
+        font-size: 38px;
+        margin-bottom: 16px;
+      }
+      .hero-desc {
+        font-size: 15px;
+        line-height: 1.5;
+        margin: 0 auto 30px;
+      }
+      .hero-bottom {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+      }
+      .hero-stat-card {
+        padding: 15px;
+        width: 100%;
+      }
+      .hero-shop-wrap {
+        width: 100%;
+        justify-content: center;
+      }
+      .hero-shop-btn {
+        flex: 1;
+        font-size: 14px;
+        padding: 15px;
+      }
+
+      /* Layout & Overflows */
+      .section-wrapper, .page-wrap {
+        overflow-x: hidden;
+        padding: 0;
+      }
+      
+      /* Filter Rows (Horizontal Scroll) */
+      .filter-row {
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 4px 10px;
+        width: 100%;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+      }
+      .filter-btn, .see-all-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+        font-size: 12px;
+        padding: 8px 16px;
+      }
+
+      /* Grids Mobile */
+      .collection-grid, .collection-grid-all, .products-grid, .works-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+        padding: 0 20px;
+      }
+      
+      .coll-card-large, .coll-card-small, .coll-card-uniform {
+        height: 280px !important;
+      }
+
+      /* About Section */
+      .about-inner {
+        flex-direction: column;
+        padding: 40px 20px;
+      }
+      .about-heading { font-size: 28px; }
+      .about-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      /* Contact Section */
+      .contact-inner {
+        flex-direction: column;
+        padding: 40px 20px;
+      }
+      .contact-details { font-size: 14px; }
+      
+      /* Footer */
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 20px;
+      }
+      .footer-big-text {
+        font-size: 15vw;
+      }
+
+      /* Floating Buttons */
+      .floating-whatsapp-btn, .floating-testimonial-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+        bottom: 20px;
+      }
+      .floating-whatsapp-btn svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
     @keyframes pulse-soft {
       0%, 100% { transform: scale(1); opacity: 0.8; }
       50% { transform: scale(1.05); opacity: 1; }
