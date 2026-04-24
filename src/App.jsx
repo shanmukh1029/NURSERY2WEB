@@ -148,14 +148,54 @@ function App() {
     item.keywords.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const [showFruitGallery, setShowFruitGallery] = useState(false);
-  const fruitPlantsGallery = [
-    { id: 'f1', name: 'Banganapalli Mango', img: 'fruit_mango_premium_1777051984930.png', family: 'Anacardiaceae', desc: 'The King of Mangoes, known for its sweet, fiberless pulp and rich aroma.' },
-    { id: 'f2', name: 'Allahabad Guava', img: 'fruit_guava_premium_1777052010346.png', family: 'Myrtaceae', desc: 'Premium white guava, sweet and crunchy with a smooth texture.' },
-    { id: 'f3', name: 'Kagzi Lemon', img: 'fruit_lemon_premium_1777052033476.png', family: 'Rutaceae', desc: 'Juicy, thin-skinned lemons perfect for home use and beverages.' },
-    { id: 'f4', name: 'Ruby Pomegranate', img: 'fruit_pomegranate_premium_1777052062754.png', family: 'Lythraceae', desc: 'Deep red, jewel-like seeds packed with antioxidants and sweet juice.' },
-    { id: 'f5', name: 'Cricket Ball Sapota', img: 'fruit_sapota_premium_1777052087272.png', family: 'Sapotaceae', desc: 'Large, round, grainy-sweet fruit that melts in your mouth.' }
-  ];
+  const [activeGalleryCat, setActiveGalleryCat] = useState(null);
+  const categoryGalleries = {
+    fruit: [
+      { id: 'f1', name: 'Banganapalli Mango', img: 'fruit_mango_premium_1777051984930.png', family: 'Anacardiaceae', desc: 'The King of Mangoes, known for its sweet, fiberless pulp and rich aroma.' },
+      { id: 'f2', name: 'Allahabad Guava', img: 'fruit_guava_premium_1777052010346.png', family: 'Myrtaceae', desc: 'Premium white guava, sweet and crunchy with a smooth texture.' },
+      { id: 'f3', name: 'Kagzi Lemon', img: 'fruit_lemon_premium_1777052033476.png', family: 'Rutaceae', desc: 'Juicy, thin-skinned lemons perfect for home use and beverages.' },
+      { id: 'f4', name: 'Ruby Pomegranate', img: 'fruit_pomegranate_premium_1777052062754.png', family: 'Lythraceae', desc: 'Deep red, jewel-like seeds packed with antioxidants and sweet juice.' },
+      { id: 'f5', name: 'Cricket Ball Sapota', img: 'fruit_sapota_premium_1777052087272.png', family: 'Sapotaceae', desc: 'Large, round, grainy-sweet fruit that melts in your mouth.' }
+    ],
+    avenues: [
+      { id: 'a1', name: 'Royal Gulmohar', img: 'avenue_gulmohar_premium_1777053249656.png', family: 'Fabaceae', desc: 'Stunning red-orange blossoms that transform any avenue into a floral paradise.' },
+      { id: 'a2', name: 'Neem Tree', img: 'avenue_trees.png', family: 'Meliaceae', desc: 'The eternal air purifier, providing vast shade and medicinal benefits.' },
+      { id: 'a3', name: 'Spathodea', img: 'avenue_trees.png', family: 'Bignoniaceae', desc: 'The African Tulip tree, featuring majestic orange-red bell-shaped flowers.' }
+    ],
+    flowers: [
+      { id: 'fl1', name: 'Vibrant Hibiscus', img: 'flower_hibiscus_premium_1777053279512.png', family: 'Malvaceae', desc: 'Bold, tropical blooms that add an instant splash of high-end color to your garden.' },
+      { id: 'fl2', name: 'Grand Rose', img: 'orchids.png', family: 'Rosaceae', desc: 'The queen of flowers, known for its exquisite fragrance and timeless beauty.' }
+    ],
+    exotic: [
+      { id: 'e1', name: 'Pink Dragon Fruit', img: 'exotic_dragon_fruit_premium_1777053313490.png', family: 'Cactaceae', desc: 'A futuristic-looking tropical delight, rich in fiber and antioxidants.' },
+      { id: 'e2', name: 'Rambutan', img: 'pet_friendly_plants.png', family: 'Sapindaceae', desc: 'Sweet, hairy exotic fruit with a succulent white flesh inside.' }
+    ],
+    palms: [
+      { id: 'p1', name: 'Bismarckia Palm', img: 'palm_bismarckia_premium_1777053345597.png', family: 'Arecaceae', desc: 'Architectural silver-blue fan fronds that define luxury landscaping.' },
+      { id: 'p2', name: 'Foxtail Palm', img: 'hero_fern.png', family: 'Arecaceae', desc: 'Elegant, fluffy fronds resembling a fox tail, perfect for poolside aesthetics.' }
+    ],
+    spices: [
+      { id: 's1', name: 'Black Pepper', img: 'spice_black_pepper_premium_1777053390918.png', family: 'Piperaceae', desc: 'The "King of Spices" climbing vine, adding culinary heritage to your backyard.' },
+      { id: 's2', name: 'Cinnamon', img: 'bonsai_plant.png', family: 'Lauraceae', desc: 'Aromatic evergreen tree whose bark provides the world\'s most beloved spice.' }
+    ],
+    indoor: [
+      { id: 'i1', name: 'Snake Plant', img: 'indoor_snake_plant_premium_1777053426619.png', family: 'Asparagaceae', desc: 'The ultimate air-purifying architectural plant, thriving on minimal care.' },
+      { id: 'i2', name: 'Peace Lily', img: 'pothos_plant.png', family: 'Araceae', desc: 'Elegant white spathes and deep green leaves that filter indoor toxins.' }
+    ],
+    bonsai: [
+      { id: 'b1', name: 'Desert Rose Bonsai', img: 'bonsai_adenium_premium_1777053466375.png', family: 'Apocynaceae', desc: 'Sculpted living art featuring a thick caudex and brilliant pink blooms.' },
+      { id: 'b2', name: 'Ficus Microcarpa', img: 'bonsai_plant.png', family: 'Moraceae', desc: 'Classic bonsai with ancient-looking aerial roots and dense foliage.' }
+    ],
+    bamboo: [
+      { id: 'ba1', name: 'Golden Bamboo', img: 'bamboo_golden_premium_1777053506018.png', family: 'Poaceae', desc: 'Fast-growing golden stalks that create a serene, luxury privacy screen.' }
+    ],
+    medicinal: [
+      { id: 'm1', name: 'Holy Tulsi', img: 'medical_tulsi_premium_1777053550042.png', family: 'Lamiaceae', desc: 'The "Queen of Herbs," revered for its immunity-boosting and spiritual properties.' }
+    ],
+    lawn: [
+      { id: 'l1', name: 'Mexican Grass', img: 'lawn_mexican_grass_premium_1777053593448.png', family: 'Poaceae', desc: 'Luxury manicured carpet grass, soft to the touch and vibrant emerald green.' }
+    ]
+  };
 
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -372,25 +412,25 @@ function App() {
             </button>
           </div>
 
-          {showFruitGallery ? (
+          {activeGalleryCat ? (
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               className="collection-detail-view"
             >
               <div className="collection-view-header">
-                <button className="back-btn-lux" onClick={() => setShowFruitGallery(false)}>
+                <button className="back-btn-lux" onClick={() => setActiveGalleryCat(null)}>
                   <span className="material-symbols-outlined">arrow_back</span>
                   Back to Categories
                 </button>
                 <div className="view-title-wrap">
-                  <h3 className="view-title-lux">Premium Fruit Varieties</h3>
-                  <p className="view-subtitle-lux">Curated from Sri Satya Ramayya's heritage orchards</p>
+                  <h3 className="view-title-lux">{allCategories.find(c => c.id === activeGalleryCat)?.name}</h3>
+                  <p className="view-subtitle-lux">Curated specimens from Sri Satya Ramayya Nursery</p>
                 </div>
               </div>
               
               <div className="collection-grid-all">
-                {fruitPlantsGallery.map((plant, idx) => (
+                {(categoryGalleries[activeGalleryCat] || []).map((plant, idx) => (
                   <motion.div
                     key={plant.id}
                     className="coll-card coll-card-uniform"
@@ -411,6 +451,29 @@ function App() {
                     </div>
                   </motion.div>
                 ))}
+                {/* Custom Admin Plants for this category */}
+                {customPlants.filter(p => p.collection === allCategories.find(c => c.id === activeGalleryCat)?.name).map((plant, i) => (
+                  <motion.div
+                    key={plant.id}
+                    className="coll-card coll-card-uniform"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    {plant.img ? (
+                      <img src={plant.img} alt={plant.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                    ) : (
+                      <div style={{ width: '100%', height: '100%', background: '#1e2e1a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '40px' }}>
+                        🌿
+                      </div>
+                    )}
+                    <div className="coll-card-overlay"></div>
+                    <div className="coll-card-content">
+                      <h3 className="coll-card-title">{plant.name}</h3>
+                      <p className="coll-card-desc">{plant.desc || plant.specs || 'Nurtured at Sri Satya Ramayya Nursery.'}</p>
+                      <div className="admin-plant-price-badge">₹{plant.price || 'Contact'}</div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           ) : (
@@ -422,8 +485,8 @@ function App() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: showAll ? i * 0.05 : i * 0.1 }}
-                  onClick={() => { if (cat.id === 'fruit') setShowFruitGallery(true); }}
-                  style={{ cursor: cat.id === 'fruit' ? 'pointer' : 'default' }}
+                  onClick={() => setActiveGalleryCat(cat.id)}
+                  style={{ cursor: 'pointer' }}
                 >
                   <img src={cat.img} alt={`${cat.name} - Sri Satya Ramayya Nursery Category`} loading="lazy" />
                   <div className="coll-card-overlay"></div>
