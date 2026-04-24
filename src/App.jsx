@@ -147,38 +147,21 @@ function App() {
 
   return (
     <>
-      {/* Botanical Blueprint Preloader */}
+      {/* Ethereal Blossom Preloader */}
       <div className={`preloader ${!loading ? 'fade-out' : ''}`}>
-        <div className="loader-frame">
-          <div className="loader-top-bar">
-            <span>SRN_System_v4.0</span>
-            <span>Loc: Nursery_Primary</span>
-          </div>
-          
-          <div className="loader-center-art">
-            <svg className="loader-svg-blueprint" viewBox="0 0 100 100">
-              <path 
-                className="blueprint-path"
-                d="M50 20 C30 20 15 40 15 60 C15 85 50 95 50 95 C50 95 85 85 85 60 C85 40 70 20 50 20 Z" 
-              />
-              <path className="blueprint-path" d="M50 20 L50 95" opacity="0.3" />
-              <path className="blueprint-path" d="M50 40 L35 55" opacity="0.3" />
-              <path className="blueprint-path" d="M50 60 L65 45" opacity="0.3" />
+        <div className="ethereal-glow"></div>
+        
+        <div className="loader-lux-content">
+          <div className="loader-seed-wrap">
+            <div className="loader-aura-ring"></div>
+            <div className="loader-aura-ring" style={{ animationDelay: '1s' }}></div>
+            <svg className="loader-seed-svg" viewBox="0 0 100 100">
+              <path d="M50 20 C30 20 15 40 15 60 C15 85 50 95 50 95 C50 95 85 85 85 60 C85 40 70 20 50 20 Z" />
             </svg>
           </div>
 
-          <div className="loader-bottom-info">
-            <h2 className="loader-main-title">Botanical Assembly</h2>
-            <div className="loader-data-row">
-              <span className="loader-count">{progress}%</span>
-              <div className="loader-bar-bg">
-                <div className="loader-bar-progress" style={{ width: `${progress}%` }}></div>
-              </div>
-            </div>
-            <div className="loader-footer">
-              Initiating Organic Data Synchronization...
-            </div>
-          </div>
+          <h2 className="loader-lux-title">Sri Satya Ramayya Nursery</h2>
+          <div className="loader-lux-count">{progress}%</div>
         </div>
       </div>
       
