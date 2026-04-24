@@ -157,11 +157,13 @@ function App() {
             <div className="loader-ring-bg"></div>
             <div className="loader-ring-progress" style={{ transform: `rotate(${progress * 3.6}deg)` }}></div>
             <svg className="loader-svg" viewBox="0 0 100 100">
+              {/* Organic Leaf Shape */}
               <path 
-                d="M50 95 C20 75 5 50 15 25 C25 5 45 10 50 20 C55 10 75 5 85 25 C95 50 80 75 50 95Z" 
+                d="M50 20 C30 20 15 40 15 60 C15 85 50 95 50 95 C50 95 85 85 85 60 C85 40 70 20 50 20 Z" 
                 fill="var(--lime)" 
                 opacity="0.9"
               />
+              <path d="M50 20 L50 95 M50 40 L35 55 M50 60 L65 45 M50 75 L35 85" stroke="rgba(0,0,0,0.2)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
             </svg>
           </div>
           
