@@ -165,9 +165,7 @@ function App() {
         </div>
       </div>
       
-
-{/* ===== HERO SECTION ===== */}
-<div className="page-wrap">
+      <main className="page-wrap">
   <section className="hero">
     <motion.div className="hero-bg" style={{ y: heroBgY }}></motion.div>
     <nav className="navbar">
@@ -349,7 +347,7 @@ function App() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: showAll ? i * 0.05 : i * 0.1 }}
               >
-                <img src={cat.img} alt={cat.name} />
+                <img src={cat.img} alt={`${cat.name} - Sri Satya Ramayya Nursery Category`} loading="lazy" />
                 <div className="coll-card-overlay"></div>
                 <div className="coll-card-content">
                   <h3 className="coll-card-title">{cat.name}</h3>
@@ -373,7 +371,7 @@ function App() {
                 transition={{ duration: 0.5, delay: (displayCategories.length + i) * 0.1 }}
               >
                 {plant.img ? (
-                  <img src={plant.img} alt={plant.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={plant.img} alt={`${plant.name} - Premium Plant`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
                 ) : (
                   <div style={{ width: '100%', height: '100%', background: '#1e2e1a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '40px' }}>
                     🌿
@@ -411,7 +409,7 @@ function App() {
       {/* Product 1 */}
       <div className="product-card" id="product-peperomia">
         <div className="product-img-wrap">
-          <img src="bonsai_plant.png" alt="Peperomia Plants" />
+          <img src="bonsai_plant.png" alt="Exquisite Bonsai Plant - Sri Satya Ramayya Nursery" loading="lazy" />
           <button className="product-heart" onClick={() => toggleHeart('pep')} style={{ color: activeProducts.has('pep') ? 'rgb(220, 50, 50)' : '' }} aria-label="Favourite Peperomia">♥</button>
         </div>
         <div className="product-info">
@@ -430,7 +428,7 @@ function App() {
       {/* Product 2 */}
       <div className="product-card" id="product-succulent">
         <div className="product-img-wrap">
-          <img src="pothos_plant.png" alt="Succulent Mix" />
+          <img src="pothos_plant.png" alt="Lush Pothos Plant - Greenery Collection" loading="lazy" />
           <button className="product-heart" onClick={() => toggleHeart('suc')} style={{ color: activeProducts.has('suc') ? 'rgb(220, 50, 50)' : '' }} aria-label="Favourite Succulent">♥</button>
         </div>
         <div className="product-info">
@@ -449,7 +447,7 @@ function App() {
       {/* Product 3 */}
       <div className="product-card" id="product-spider">
         <div className="product-img-wrap">
-          <img src="spider_plant.png" alt="Spider Plant" />
+          <img src="spider_plant.png" alt="Air Purifying Spider Plant" loading="lazy" />
           <button className="product-heart" onClick={() => toggleHeart('spi')} style={{ color: activeProducts.has('spi') ? 'rgb(220, 50, 50)' : '' }} aria-label="Favourite Spider Plant">♥</button>
         </div>
         <div className="product-info">
@@ -499,7 +497,7 @@ function App() {
           transition={{ duration: 0.6, delay: idx * 0.1 }}
         >
           <div className="work-img-wrap">
-            <img src={work.img || 'special_offer_bg.png'} alt={work.title} />
+            <img src={work.img || 'special_offer_bg.png'} alt={`${work.title} - Landscaping Project`} loading="lazy" />
             <div className="work-overlay"></div>
           </div>
           <div className="work-content">
@@ -758,8 +756,8 @@ function App() {
   </div>
 </motion.section>
 
-{/* ===== FOOTER ===== */}
-<footer id="footer">
+    </main>
+    <footer id="footer">
   <div className="footer-top">
     <div>
       <span className="footer-logo">Sri Satya Ramayya Nursery</span>
