@@ -147,43 +147,45 @@ function App() {
 
   return (
     <>
-      {/* Botanical Luxury Preloader (User Requested Design) */}
+      {/* New Botanical Luxe Preloader */}
       <div className={`preloader ${!loading ? 'fade-out' : ''}`}>
-        <main className="loader-main">
-          <div className="loader-icon-area">
-            <div className="loader-icon-bg"></div>
-            <div className="loader-icon-wrap">
-              <span className="material-symbols-outlined loader-main-icon">potted_plant</span>
-              <div className="loader-sub-icon-wrap">
-                <span className="material-symbols-outlined loader-sub-icon">eco</span>
+        <main className="loader-lux-main">
+          <div className="loader-icon-container">
+            <div className="loader-pulse-bg"></div>
+            <div className="loader-float-icon">
+              <span className="material-symbols-outlined loader-icon-main">potted_plant</span>
+              <div className="loader-icon-sub">
+                <span className="material-symbols-outlined">eco</span>
               </div>
             </div>
           </div>
-
-          <div className="loader-progress-area">
-            <div className="loader-metrics">
-              <span className="loader-metrics-label">Nurturing Experience</span>
-              <span className="loader-metrics-count">{progress}%</span>
+          
+          <div className="loader-status-wrap">
+            <div className="loader-status-header">
+              <span className="loader-status-label">Nurturing Experience</span>
+              <span className="loader-status-percent">{progress}%</span>
             </div>
-            <div className="loader-bar-outer">
-              <div className="loader-bar-inner" style={{ width: `${progress}%` }}></div>
+            <div className="loader-progress-track">
+              <div className="loader-progress-bar" style={{ width: `${progress}%` }}></div>
             </div>
-            <p className="loader-caption">Curating your seasonal collection...</p>
+            <p className="loader-status-hint">
+              Curating your seasonal collection...
+            </p>
           </div>
         </main>
-
-        <footer className="loader-footer">
-          <h1 className="loader-footer-title">The Botanical</h1>
-          <div className="loader-footer-divider-row">
-            <span className="loader-divider"></span>
-            <span className="loader-footer-est">Est. 2025</span>
-            <span className="loader-divider"></span>
+        
+        <footer className="loader-footer-lux">
+          <h1 className="loader-lux-brand">The Botanical</h1>
+          <div className="loader-lux-est">
+            <span className="loader-line-decor"></span>
+            <span className="loader-est-text">Est. 2024</span>
+            <span className="loader-line-decor"></span>
           </div>
         </footer>
-
+        
         <div className="loader-bg-decor">
-          <div className="blob-secondary"></div>
-          <div className="blob-tertiary"></div>
+          <div className="loader-decor-blob blob-top"></div>
+          <div className="loader-decor-blob blob-bottom"></div>
         </div>
       </div>
       

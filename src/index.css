@@ -1852,210 +1852,207 @@
       .works-grid { grid-template-columns: 1fr; }
     }
 
-    /* ===== BOTANICAL LUXURY PRELOADER (User Request) ===== */
+    /* ===== BOTANICAL LUXE PRELOADER (NEW) ===== */
+    :root {
+      --botanical-bg: #fbf9f4;
+      --botanical-primary: #173124;
+      --botanical-primary-container: #2d4739;
+      --botanical-on-surface-variant: #424844;
+      --botanical-surface-highest: #e4e2dd;
+      --botanical-on-primary-container: #98b5a3;
+    }
+
     .preloader {
       position: fixed;
       inset: 0;
-      background: #fbf9f4; /* Light background from snippet */
+      background: var(--botanical-bg);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 10000;
       overflow: hidden;
-      transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+      transition: all 1s cubic-bezier(0.85, 0, 0.15, 1);
     }
 
     .preloader.fade-out {
       opacity: 0;
-      transform: scale(1.1);
       visibility: hidden;
+      transform: scale(1.05);
     }
 
-    .loader-main {
-      flex: 1 1 0%;
+    .loader-lux-main {
+      flex-grow: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       width: 100%;
-      max-width: 28rem;
-      padding: 0 1.5rem;
+      max-width: 448px;
+      padding: 0 24px;
     }
 
-    /* Background Blobs */
-    .loader-bg-decor {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-    }
-    .blob-secondary {
-      position: absolute;
-      top: -10%;
-      left: -10%;
-      width: 40%;
-      height: 40%;
-      background: rgba(210, 232, 216, 0.5); /* secondary-container/10 */
-      filter: blur(120px);
-      border-radius: 9999px;
-    }
-    .blob-tertiary {
-      position: absolute;
-      bottom: -10%;
-      right: -10%;
-      width: 40%;
-      height: 40%;
-      background: rgba(255, 219, 207, 0.5); /* tertiary-fixed/10 */
-      filter: blur(120px);
-      border-radius: 9999px;
-    }
-
-    .loader-icon-area {
+    .loader-icon-container {
       position: relative;
-      width: 12rem;
-      height: 12rem;
-      margin-bottom: 3rem;
+      width: 192px;
+      height: 192px;
+      margin-bottom: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .loader-icon-bg {
+    .loader-pulse-bg {
       position: absolute;
       inset: 0;
-      background: rgba(45, 71, 57, 0.05); /* primary-container/5 */
-      border-radius: 9999px;
-      filter: blur(48px); /* blur-3xl */
+      background: rgba(45, 71, 57, 0.05);
+      border-radius: 50%;
+      filter: blur(48px);
       animation: pulse-soft 4s ease-in-out infinite;
     }
 
-    .loader-icon-wrap {
+    .loader-float-icon {
       position: relative;
       animation: float-leaf 6s ease-in-out infinite;
     }
 
-    .loader-main-icon {
-      color: #2d4739;
+    .loader-icon-main {
       font-size: 80px !important;
+      color: var(--botanical-primary-container);
       font-variation-settings: 'FILL' 1;
     }
 
-    .loader-sub-icon-wrap {
+    .loader-icon-sub {
       position: absolute;
-      top: -1rem;
-      right: -0.5rem;
+      top: -16px;
+      right: -8px;
+      font-size: 24px !important;
+      color: var(--botanical-on-primary-container);
       animation: pulse-soft 4s ease-in-out infinite;
       animation-delay: 1s;
     }
 
-    .loader-sub-icon {
-      color: #2d4739;
-      font-size: 24px !important;
-    }
-
-    .loader-progress-area {
+    .loader-status-wrap {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 16px;
     }
 
-    .loader-metrics {
+    .loader-status-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      padding: 0 0.25rem;
+      padding: 0 4px;
     }
 
-    .loader-metrics-label {
+    .loader-status-label {
       font-family: 'Manrope', sans-serif;
       font-size: 12px;
-      color: #424844;
+      color: var(--botanical-on-surface-variant);
       text-transform: uppercase;
       letter-spacing: 0.08em;
       font-weight: 600;
     }
 
-    .loader-metrics-count {
+    .loader-status-percent {
       font-family: 'Manrope', sans-serif;
       font-size: 12px;
-      color: #173124;
+      color: var(--botanical-primary);
       font-weight: 700;
     }
 
-    .loader-bar-outer {
+    .loader-progress-track {
       height: 2px;
       width: 100%;
-      background: #e4e2dd; /* surface-container-highest */
+      background: var(--botanical-surface-highest);
       border-radius: 9999px;
       overflow: hidden;
     }
 
-    .loader-bar-inner {
+    .loader-progress-bar {
       height: 100%;
-      background: linear-gradient(to right, #2d4739, #98b5a3, #b0cdbb);
+      background: linear-gradient(90deg, var(--botanical-primary-container), var(--botanical-on-primary-container));
       border-radius: 9999px;
       transition: width 0.3s ease-out;
     }
 
-    .loader-caption {
+    .loader-status-hint {
       text-align: center;
       font-family: 'Manrope', sans-serif;
       font-size: 16px;
-      color: #424844;
+      color: var(--botanical-on-surface-variant);
       font-style: italic;
       opacity: 0.6;
     }
 
-    .loader-footer {
-      padding-bottom: 4rem;
+    .loader-footer-lux {
+      padding-bottom: 64px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
+      gap: 8px;
     }
 
-    .loader-footer-title {
+    .loader-lux-brand {
       font-family: 'Noto Serif', serif;
       font-size: 32px;
-      color: #173124;
+      color: var(--botanical-primary);
       letter-spacing: -0.02em;
-      animation: fade-slow 3s ease-in-out infinite;
+      animation: fade-in-out 3s ease-in-out infinite;
     }
 
-    .loader-footer-divider-row {
+    .loader-lux-est {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 8px;
       color: rgba(66, 72, 68, 0.4);
     }
 
-    .loader-divider {
-      width: 2rem;
+    .loader-line-decor {
+      width: 32px;
       height: 1px;
       background: currentColor;
     }
 
-    .loader-footer-est {
+    .loader-est-text {
       font-family: 'Manrope', sans-serif;
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.2em;
     }
 
-    @keyframes pulse-soft {
-        0%, 100% { transform: scale(1); opacity: 0.8; }
-        50% { transform: scale(1.05); opacity: 1; }
+    .loader-bg-decor {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
     }
-    @keyframes fade-slow {
-        0%, 100% { opacity: 0.3; }
-        50% { opacity: 1; }
+
+    .loader-decor-blob {
+      position: absolute;
+      width: 40%;
+      height: 40%;
+      filter: blur(120px);
+      border-radius: 50%;
+    }
+
+    .blob-top { top: -10%; left: -10%; background: rgba(210, 232, 216, 0.1); }
+    .blob-bottom { bottom: -10%; right: -10%; background: rgba(255, 219, 207, 0.1); }
+
+    @keyframes pulse-soft {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+    @keyframes fade-in-out {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
     }
     @keyframes float-leaf {
-        0% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-10px) rotate(2deg); }
-        100% { transform: translateY(0px) rotate(0deg); }
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
     }
 
   
