@@ -40,6 +40,12 @@
       transform: scale(0.98);
       filter: blur(8px);
     }
+    
+    @media (max-width: 768px) {
+      .preloader:not(.fade-out) ~ .page-wrap {
+        filter: none; /* Disable blur on mobile for smoother scroll entry */
+      }
+    }
 
     /* ===== NAVBAR ===== */
     .navbar {
@@ -1890,7 +1896,8 @@
     .preloader.fade-out {
       opacity: 0;
       visibility: hidden;
-      transform: scale(1.05);
+      pointer-events: none; /* Release interaction immediately */
+      transform: scale(1.02);
     }
 
     .loader-lux-main {

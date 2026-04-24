@@ -66,19 +66,25 @@ function App() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    const isLocked = loading || searchOpen || showLogin || showAdmin;
+    document.body.style.overflow = isLocked ? 'hidden' : 'auto';
+    return () => { document.body.style.overflow = 'auto'; };
+  }, [loading, searchOpen, showLogin, showAdmin]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
           setTimeout(() => {
             setLoading(false);
-            window.scrollTo(0, 0); // Force scroll to top for fresh preloader reveal
-          }, 500);
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); // Use instant to avoid race conditions with smooth-scroll
+          }, 300);
           return 100;
         }
-        return prev + 1;
+        return prev + 2; // Slightly faster for smoother mobile experience
       });
-    }, 35); // Cinematic Senior Designer pacing (approx 3.5s total)
+    }, 40);
     return () => clearInterval(interval);
   }, []);
 
