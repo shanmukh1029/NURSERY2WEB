@@ -885,6 +885,8 @@ function App() {
       </form>
     </motion.div>
   </div>
+</motion.section>
+
 {/* ===== SEO TEXT SECTION ===== */}
 <section className="seo-text-section">
   <div className="seo-container">
