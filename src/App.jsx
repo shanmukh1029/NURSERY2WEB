@@ -885,7 +885,34 @@ function App() {
       </form>
     </motion.div>
   </div>
-</motion.section>
+{/* ===== SEO TEXT SECTION ===== */}
+<section className="seo-text-section">
+  <div className="seo-container">
+    <div className="seo-grid">
+      <div className="seo-content">
+        <h3>Premium Plant Nursery in Kadiyam - Sri Satya Ramayya Nursery</h3>
+        <p>
+          Sri Satya Ramayya Nursery is your premier destination for high-quality botanical specimens. Located in the heart of the world-famous <strong>Kadiyam Nursery</strong> hub, we bring over three decades of horticultural expertise to your doorstep. Whether you are looking to buy <strong>fruit plants online</strong>, source majestic <strong>avenue trees</strong> for landscaping, or find rare <strong>exotic plants</strong>, we have a curated collection that meets the highest standards.
+        </p>
+        <p>
+          Our specialization includes a wide variety of <strong>Mango varieties</strong>, <strong>Citrus plants</strong>, <strong>Palm trees</strong>, and <strong>Medicinal herbs</strong>. We take pride in being a trusted partner for <strong>professional landscaping services</strong>, helping transform residential gardens and commercial spaces into lush, green sanctuaries.
+        </p>
+      </div>
+      <div className="seo-content">
+        <h3>Why Choose Our Nursery Services?</h3>
+        <ul>
+          <li><strong>Quality Assured:</strong> Every plant is nurtured with organic practices to ensure maximum growth and health.</li>
+          <li><strong>Wide Variety:</strong> From <strong>Bonsai masterpieces</strong> to <strong>indoor air-purifying plants</strong>, our inventory is diverse and robust.</li>
+          <li><strong>Expert Guidance:</strong> Our master gardeners provide consultation on plant care, soil health, and sustainable gardening.</li>
+          <li><strong>Reliable Delivery:</strong> We offer secure and fast shipping for those looking to buy <strong>plants online in India</strong>.</li>
+        </ul>
+        <p>
+          Experience the excellence of <strong>Sri Satya Ramayya Nursery</strong>. Visit us to explore our <strong>landscaping projects</strong> and discover why we are a preferred choice for plant enthusiasts across the country.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
     </main>
     <footer id="footer">
